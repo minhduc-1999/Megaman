@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Megaman", "Megaman\Megaman.csproj", "{092CD6C3-ACC0-42A6-9BFC-9F5483459956}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Megaman", "Megaman\Megaman.csproj", "{3A9CE972-5597-4DB3-8AEE-36F91FBD80D6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{092CD6C3-ACC0-42A6-9BFC-9F5483459956}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{092CD6C3-ACC0-42A6-9BFC-9F5483459956}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{092CD6C3-ACC0-42A6-9BFC-9F5483459956}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{092CD6C3-ACC0-42A6-9BFC-9F5483459956}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A9CE972-5597-4DB3-8AEE-36F91FBD80D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A9CE972-5597-4DB3-8AEE-36F91FBD80D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A9CE972-5597-4DB3-8AEE-36F91FBD80D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A9CE972-5597-4DB3-8AEE-36F91FBD80D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {DBFE5AD5-3C6D-455E-BC49-8FA074E31FED}
+		SolutionGuid = {3597A76D-62E3-4186-B3CF-709405027E44}
 	EndGlobalSection
 EndGlobal

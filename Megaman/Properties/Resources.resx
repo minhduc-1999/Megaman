@@ -118,28 +118,52 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="ZeroBeam" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ZeroBeam.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="animation" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\animation.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="ZeroDamaged" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ZeroDamaged.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="background_map" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\background_map.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="ZeroDrop" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ZeroDrop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="bgmusic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bgmusic.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="ZeroDropShot" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ZeroDropShot.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="bluefireshooting" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bluefireshooting.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="ZeroJump" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ZeroJump.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="enemies" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\enemies.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="ZeroRun" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ZeroRun.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="enemysprite1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\enemysprite1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ZeroStand" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ZeroStand.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="enemysprite2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\enemysprite2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ZeroStandShot" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ZeroStandShot.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="frame" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frame.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="megamanhurt" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\megamanhurt.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="megasprite" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\megasprite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="phys_map" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\phys_map.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="redeyeshooting" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\redeyeshooting.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="robotRshooting" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\robotRshooting.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sounds" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sounds.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="textgame" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\textgame.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="tiled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\tiled.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Megaman.src.UserInterface;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +17,7 @@ namespace Megaman
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MegamanGame());
+            Application.Run(new GameFrame());
         }
     }
 }

@@ -61,11 +61,74 @@ namespace Megaman.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 27
+        ///idle
+        ///idle1 70000000 idle2 70000000 idle3 70000000 idle2 70000000 idle1 1500000000
+        ///
+        ///idleshoot
+        ///idleshoot1 500000000 idleshoot1 70000000
+        ///
+        ///run
+        ///run1 100000000 run2 100000000 run3 100000000 run4 100000000 run5 100000000 run6 100000000 run7 100000000 run8 100000000 run9 100000000 run10 100000000 run11 100000000
+        ///
+        ///runshoot
+        ///runshoot1 1 runshoot2 1 runshoot3 1 runshoot4 1 runshoot5 5 runshoot6 1 runshoot7 1 runshoot8 1 runshoot9 1 runshoot10 1
+        ///
+        ///dick
+        ///dick1 70000000 dick3 70000000 dick4 70000000 dick3 70000000 dick1  [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string animation {
+            get {
+                return ResourceManager.GetString("animation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 50
+        ///156
+        ///08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08 08
+        ///08 08 08 08 08 08 08 08 08 08 08 08 0 [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string background_map {
+            get {
+                return ResourceManager.GetString("background_map", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream bgmusic {
+            get {
+                return ResourceManager.GetStream("bgmusic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream bluefireshooting {
+            get {
+                return ResourceManager.GetStream("bluefireshooting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to gun_emplacement 700 200
+        ///.
+        /// </summary>
+        internal static string enemies {
+            get {
+                return ResourceManager.GetString("enemies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ZeroBeam {
+        internal static System.Drawing.Bitmap enemysprite1 {
             get {
-                object obj = ResourceManager.GetObject("ZeroBeam", resourceCulture);
+                object obj = ResourceManager.GetObject("enemysprite1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,9 +136,165 @@ namespace Megaman.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ZeroDamaged {
+        internal static System.Drawing.Bitmap enemysprite2 {
             get {
-                object obj = ResourceManager.GetObject("ZeroDamaged", resourceCulture);
+                object obj = ResourceManager.GetObject("enemysprite2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 
+        ///158
+        ///
+        ///idle1
+        ///image data/megasprite.png
+        ///x 530
+        ///y 40
+        ///w 80
+        ///h 90
+        ///
+        ///idle2
+        ///image data/megasprite.png
+        ///x 616
+        ///y 40
+        ///w 80
+        ///h 90
+        ///
+        ///idle3
+        ///image data/megasprite.png
+        ///x 702
+        ///y 40
+        ///w 80
+        ///h 90
+        ///
+        ///idleshoot1
+        ///image data/megasprite.png
+        ///x 5
+        ///y 418
+        ///w 80
+        ///h 90
+        ///
+        ///
+        ///
+        ///
+        ///
+        ///
+        ///
+        ///run1
+        ///image data/megasprite.png
+        ///x 800
+        ///y 43
+        ///w 75
+        ///h 90
+        ///
+        ///run2
+        ///image data/megasprite.png
+        ///x 876
+        ///y 43
+        ///w 54
+        ///h 90
+        ///
+        ///run3
+        ///image data/megasprite.png
+        ///x 929
+        ///y 43
+        ///w 60
+        ///h 90
+        ///
+        ///run4
+        ///image data/megasprite.png
+        ///x 989
+        ///y 43
+        ///w 81
+        ///h 90
+        ///
+        ///run5
+        ///image data/megasprite.png
+        ///x 1071
+        ///y 43
+        ///w 83
+        ///h 90
+        ///
+        ///run6
+        ///image dat [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string frame {
+            get {
+                return ResourceManager.GetString("frame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream megamanhurt {
+            get {
+                return ResourceManager.GetStream("megamanhurt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap megasprite {
+            get {
+                object obj = ResourceManager.GetObject("megasprite", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 50
+        ///156
+        ///1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1
+        ///1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string phys_map {
+            get {
+                return ResourceManager.GetString("phys_map", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream redeyeshooting {
+            get {
+                return ResourceManager.GetStream("redeyeshooting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream robotRshooting {
+            get {
+                return ResourceManager.GetStream("robotRshooting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 5
+        ///
+        ///bluefireshooting data/bluefireshooting.wav
+        ///redeyeshooting data/redeyeshooting.wav
+        ///bgmusic data/bgmusic.wav
+        ///robotRshooting data/robotRshooting.wav
+        ///megamanhurt data/megamanhurt.wav.
+        /// </summary>
+        internal static string sounds {
+            get {
+                return ResourceManager.GetString("sounds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap textgame {
+            get {
+                object obj = ResourceManager.GetObject("textgame", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,59 +302,9 @@ namespace Megaman.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ZeroDrop {
+        internal static System.Drawing.Bitmap tiled {
             get {
-                object obj = ResourceManager.GetObject("ZeroDrop", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap ZeroDropShot {
-            get {
-                object obj = ResourceManager.GetObject("ZeroDropShot", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap ZeroJump {
-            get {
-                object obj = ResourceManager.GetObject("ZeroJump", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap ZeroRun {
-            get {
-                object obj = ResourceManager.GetObject("ZeroRun", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap ZeroStand {
-            get {
-                object obj = ResourceManager.GetObject("ZeroStand", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap ZeroStandShot {
-            get {
-                object obj = ResourceManager.GetObject("ZeroStandShot", resourceCulture);
+                object obj = ResourceManager.GetObject("tiled", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
