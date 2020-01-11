@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Megaman.src.State;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,20 +7,20 @@ using System.Threading.Tasks;
 
 namespace Megaman.src.GameObject
 {
-    public class BulletManager extends ParticularObjectManager
+    public class BulletManager : ParticularObjectManager
     {
 
-    public BulletManager(GameWorldState gameWorld)
+    public BulletManager(GameWorldState gameWorld):base(gameWorld)
     {
-        super(gameWorld);
+      
     }
 
-    @Override
-    public void UpdateObjects()
+    //@Override
+    public override void UpdateObjects()
     {
-        super.UpdateObjects();
+        base.UpdateObjects();
         synchronized(particularObjects){
-            for (int id = 0; id < particularObjects.size(); id++)
+            for (int id = 0; id < particularObjects.Count; id++)
             {
 
                 ParticularObject object = particularObjects.get(id);

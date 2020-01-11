@@ -33,7 +33,7 @@ namespace Megaman.src.GameObject
         }
 
         //@Override
-        public override void Update()
+        public override void Update(GameTime gameTime)
         {
 
             // NOTE: WHEN SEE FINAL BOSS, THE CAMERA WON'T CHANGE THE POSITION,

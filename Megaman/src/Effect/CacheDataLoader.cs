@@ -14,11 +14,11 @@ namespace Megaman.src.Effect
 
         private static CacheDataLoader instance = null;
 
-        private String framefile = "data/frame.txt";
-        private String animationfile = "data/animation.txt";
-        private String physmapfile = "data/phys_map.txt";
-        private String backgroundmapfile = "data/background_map.txt";
-        private String soundfile = "data/sounds.txt";
+        private String framefile = @"G:\Git\Megaman\Megaman\Resources\frame.txt";
+        private String animationfile = @"G:\Git\Megaman\Megaman\Resources\animation.txt";
+        private String physmapfile = @"G:\Git\Megaman\Megaman\Resources\phys_map.txt";
+        private String backgroundmapfile = @"G:\Git\Megaman\Megaman\Resources\background_map.txt";
+        //private String soundfile = "data/sounds.txt";
 
         private Dictionary<String, FrameImage> frameImages;
         private Dictionary<String, Animation> animations;
@@ -131,9 +131,8 @@ namespace Megaman.src.Effect
 
         public void LoadBackgroundMap() //throws IOException
         {
-
             //FileReader fr = new FileReader(backgroundmapfile);
-            StreamReader br = new StreamReader(Properties.Resources.background_map);
+            StreamReader br = new StreamReader(backgroundmapfile);
 
             String line = null;
 
@@ -168,7 +167,7 @@ namespace Megaman.src.Effect
         {
 
             //FileReader fr = new FileReader(physmapfile);
-            StreamReader br = new StreamReader(Properties.Resources.phys_map);
+            StreamReader br = new StreamReader(physmapfile);
 
             String line = null;
 
@@ -205,7 +204,7 @@ namespace Megaman.src.Effect
 
             //FileReader fr = new FileReader(animationfile);
             //BufferedReader br = new BufferedReader(fr);
-            StreamReader br = new StreamReader(Properties.Resources.animation);
+            StreamReader br = new StreamReader(animationfile);
             String line = null;
 
             if (br.ReadLine() == null)
@@ -217,7 +216,7 @@ namespace Megaman.src.Effect
             {
 
                 //fr = new FileReader(animationfile);
-                br = new StreamReader(Properties.Resources.animation);
+                br = new StreamReader(animationfile);
 
                 while ((line = br.ReadLine()).Equals("")) ;
                 int n = Convert.ToInt32(line);
@@ -232,12 +231,12 @@ namespace Megaman.src.Effect
 
                     while ((line = br.ReadLine()).Equals("")) ;
                     String[] str = line.Split(new char[] { ' ' });
-
                     for (int j = 0; j < str.Length; j += 2)
+                    {
                         animation.add(getFrameImage(str[j]), Convert.ToDouble(str[j + 1]));
+                    }
 
                     instance.animations.Add(animation.getName(), animation);
-
                 }
 
             }
@@ -247,9 +246,8 @@ namespace Megaman.src.Effect
 
         public void LoadFrame()// throws IOException
         {
-
             frameImages = new Dictionary<string, FrameImage>();
-            StreamReader br = new StreamReader(Properties.Resources.frame);
+            StreamReader br = new StreamReader(framefile);
             //FileReader fr = new FileReader(framefile);
             //BufferedReader br = new BufferedReader(fr);
 
@@ -264,7 +262,7 @@ namespace Megaman.src.Effect
             {
 
                 //fr = new FileReader(framefile);
-                br = new StreamReader(Properties.Resources.frame);
+                br = new StreamReader(framefile);
 
                 while ((line = br.ReadLine()).Equals("")) ;
                 int n = Convert.ToInt32(line);
@@ -299,11 +297,13 @@ namespace Megaman.src.Effect
                     //Image imageData = ImageIO.read(new File(path));
                     Image imageData = Image.FromFile(path);
                     //Image image = imageData.getSubimage(x, y, w, h);
-                    Bitmap bitmap = new Bitmap(imageData);
-                    Bitmap copy = bitmap.Clone(new Rectangle(x, y, w, h), imageData.PixelFormat);
-                    Image image = (Image)bitmap;
+                    //Bitmap bitmap = new Bitmap(imageData);
+                    //Bitmap copy = bitmap.Clone(new Rectangle(x, y, w, h), imageData.PixelFormat);
+                   
+                    Bitmap bmp = new Bitmap(w, h);
+                    Graphics.FromImage(bmp).DrawImage(imageData, new Rectangle(0, 0, w, h), new Rectangle(x, y, w, h), GraphicsUnit.Pixel);
+                    Image image = (Image)bmp;
                     frame.setImage(image);
-
                     instance.frameImages.Add(frame.getName(), frame);
                 }
 

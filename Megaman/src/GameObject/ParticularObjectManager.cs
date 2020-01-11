@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Megaman.src.State;
+using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -54,7 +56,7 @@ namespace Megaman.src.GameObject
         public ParticularObject getCollisionWidthEnemyObject(ParticularObject object)
         {
             synchronized(particularObjects){
-                for (int id = 0; id < particularObjects.size(); id++)
+                for (int id = 0; id < particularObjects.Count; id++)
                 {
 
                     ParticularObject objectInList = particularObjects.get(id);
@@ -69,9 +71,8 @@ namespace Megaman.src.GameObject
             return null;
         }
 
-        public void UpdateObjects()
+        public virtual void UpdateObjects()
         {
-
             synchronized(particularObjects){
                 for (int id = 0; id < particularObjects.size(); id++)
                 {
@@ -92,7 +93,7 @@ namespace Megaman.src.GameObject
 
         }
 
-        public void draw(Graphics2D g2)
+        public void draw(Graphics g2)
         {
             synchronized(particularObjects){
                 for (ParticularObject object: particularObjects)

@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Megaman.src.Effect;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,9 +12,9 @@ namespace Megaman.src.UserInterface
 {
     public class GamePanel : Panel
     {
-        Graphics _gameGraphic;
-        //Megaman.src.State.State gameState;
-
+        Megaman.src.State.State gameState;    
+        BufferedGraphicsContext buffedContext;
+        BufferedGraphics buffedGraphic;
         InputManager inputManager;
 
         private GameTime _gameTime;
@@ -21,23 +23,31 @@ namespace Megaman.src.UserInterface
 
         public bool isRunning = true;
 
-        public GamePanel():base()
+        public GamePanel() : base()
         {
-            _gameGraphic = this.CreateGraphics();
-            //gameState = new MenuState(this);
+            //
+            buffedContext = BufferedGraphicsManager.Current;
+            gameState = new MenuState(this);
 
-            //inputManager = new InputManager(gameState);
+            inputManager = new InputManager(gameState);
             _gameTime = new GameTime();
-            _gameTime.Interval = 10;
+            _gameTime.Interval = 50;
             _gameTime.Tick += _gameTime_Tick;
+            _gameTime.Start();
         }
-
         private void _gameTime_Tick(object sender, EventArgs e)
         {
             this.Update(_gameTime);
-            this.Draw(_gameGraphic);
+            this.Draw();
         }
-
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+            buffedGraphic = buffedContext.Allocate(e.Graphics, this.DisplayRectangle);
+            buffedGraphic.Graphics.Clear(Color.White);
+            gameState.Render(buffedGraphic.Graphics);
+            buffedGraphic.Render();
+        }
         //public void startGame()
         //{
         //    gameThread = new Thread(this);
@@ -48,38 +58,38 @@ namespace Megaman.src.UserInterface
         //public void run()
         //{
 
-            //long previousTime = System.nanoTime();
-            //long currentTime;
-            //long sleepTime;
+        //long previousTime = System.nanoTime();
+        //long currentTime;
+        //long sleepTime;
 
-            //long period = 1000000000 / 80;
+        //long period = 1000000000 / 80;
 
-            //while (isRunning)
-            //{
-
-               
-               
+        //while (isRunning)
+        //{
 
 
-                //repaint();
-                //this.Refresh();
 
-                //    currentTime = System.nanoTime();
-                //    sleepTime = period - (currentTime - previousTime);
-                //    try
-                //    {
 
-                //        if (sleepTime > 0)
-                //            Thread.sleep(sleepTime / 1000000);
-                //        else Thread.sleep(period / 2000000);
 
-                //    }
-                //    catch (Exception e) { }
+        //repaint();
+        //this.Refresh();
 
-                //    previousTime = System.nanoTime();
-                //}
+        //    currentTime = System.nanoTime();
+        //    sleepTime = period - (currentTime - previousTime);
+        //    try
+        //    {
 
-            //}
+        //        if (sleepTime > 0)
+        //            Thread.sleep(sleepTime / 1000000);
+        //        else Thread.sleep(period / 2000000);
+
+        //    }
+        //    catch (Exception e) { }
+
+        //    previousTime = System.nanoTime();
+        //}
+
+        //}
         //}
 
         //public void paint(Graphics g)
@@ -90,13 +100,11 @@ namespace Megaman.src.UserInterface
         //}
         public void Update(GameTime gameTime)
         {
-            //gameState.Update();
+            gameState.Update();
         }
-        public void Draw(Graphics g)
+        public void Draw()
         {
-
-           // gameState.Render();
-
+            this.Refresh();
         }
 
         //// @Override
@@ -113,11 +121,11 @@ namespace Megaman.src.UserInterface
         //    inputManager.setReleasedButton(e.getKeyCode());
         //}
 
-        //public void setState(Megaman.src.State.State state)
-        //{
-        //    gameState = state;
-        //    inputManager.setState(state);
-        //}
+        public void setState(Megaman.src.State.State state)
+        {
+            gameState = state;
+            inputManager.setState(state);
+        }
         protected override void OnKeyDown(KeyEventArgs e)
         {
             inputManager.setPressedButton(e.KeyCode);

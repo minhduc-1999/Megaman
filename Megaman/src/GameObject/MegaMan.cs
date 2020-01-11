@@ -82,14 +82,12 @@ namespace Megaman.src.GameObject
         }
 
         //@Override
-        public override void Update()
+        public override void Update(GameTime gameTime)
         {
-
             base.Update();
-
             if (isShooting)
             {
-                if (System.nanoTime() - lastShootingTime > 500 * 1000000)
+                if (DateTime.Now - lastShootingTime > 500 * 1000000)
                 {
                     isShooting = false;
                 }
@@ -97,7 +95,7 @@ namespace Megaman.src.GameObject
 
             if (getIsLanding())
             {
-                landingBackAnim.Update(System.nanoTime());
+                landingBackAnim.Update(DateTime.Now);
                 if (landingBackAnim.isLastFrame())
                 {
                     setIsLanding(false);
@@ -117,10 +115,10 @@ namespace Megaman.src.GameObject
 
             if (getIsDicking())
             {
-                rect.x = (int)getPosX() - 22;
-                rect.y = (int)getPosY() - 20;
-                rect.width = 44;
-                rect.height = 65;
+                rect.X = (int)getPosX() - 22;
+                rect.Y = (int)getPosY() - 20;
+                rect.Width = 44;
+                rect.Height = 65;
             }
             else
             {
@@ -140,9 +138,9 @@ namespace Megaman.src.GameObject
             switch (getState())
             {
 
-                case ALIVE:
-                case NOBEHURT:
-                    if (getState() == NOBEHURT && (System.nanoTime() / 10000000) % 2 != 1)
+                case MainState.ALIVE:
+                case MainState.NOBEHURT:
+                    if (getState() == MainState.NOBEHURT && (DateTime.Now / 10000000) % 2 != 1)
                     {
                         MessageBox.Show("Plash...");
                     }
@@ -152,7 +150,7 @@ namespace Megaman.src.GameObject
                         if (getIsLanding())
                         {
 
-                            if (getDirection() == RIGHT_DIR)
+                            if (getDirection() == MainDir.RIGHT_DIR)
                             {
                                 landingForwardAnim.setCurrentFrame(landingBackAnim.getCurrentFrame());
                                 landingForwardAnim.draw((int)(getPosX() - getGameWorld().camera.getPosX()),
@@ -170,9 +168,9 @@ namespace Megaman.src.GameObject
                         else if (getIsJumping())
                         {
 
-                            if (getDirection() == RIGHT_DIR)
+                            if (getDirection() == MainDir.RIGHT_DIR)
                             {
-                                flyForwardAnim.Update(System.nanoTime());
+                                flyForwardAnim.Update(DateTime.Now);
                                 if (isShooting)
                                 {
                                     flyShootingForwardAnim.setCurrentFrame(flyForwardAnim.getCurrentFrame());
@@ -183,7 +181,7 @@ namespace Megaman.src.GameObject
                             }
                             else
                             {
-                                flyBackAnim.Update(System.nanoTime());
+                                flyBackAnim.Update(DateTime.Now);
                                 if (isShooting)
                                 {
                                     flyShootingBackAnim.setCurrentFrame(flyBackAnim.getCurrentFrame());
@@ -197,16 +195,16 @@ namespace Megaman.src.GameObject
                         else if (getIsDicking())
                         {
 
-                            if (getDirection() == RIGHT_DIR)
+                            if (getDirection() == MainDir.RIGHT_DIR)
                             {
-                                dickForwardAnim.Update(System.nanoTime());
+                                dickForwardAnim.Update(DateTime.Now);
                                 dickForwardAnim.draw((int)(getPosX() - getGameWorld().camera.getPosX()),
                                         (int)getPosY() - (int)getGameWorld().camera.getPosY() + (getBoundForCollisionWithMap().height / 2 - dickForwardAnim.getCurrentImage().getHeight() / 2),
                                         g2);
                             }
                             else
                             {
-                                dickBackAnim.Update(System.nanoTime());
+                                dickBackAnim.Update(DateTime.Now);
                                 dickBackAnim.draw((int)(getPosX() - getGameWorld().camera.getPosX()),
                                         (int)getPosY() - (int)getGameWorld().camera.getPosY() + (getBoundForCollisionWithMap().height / 2 - dickBackAnim.getCurrentImage().getHeight() / 2),
                                         g2);
@@ -217,7 +215,7 @@ namespace Megaman.src.GameObject
                         {
                             if (getSpeedX() > 0)
                             {
-                                runForwardAnim.Update(System.nanoTime());
+                                runForwardAnim.Update(DateTime.Now);
                                 if (isShooting)
                                 {
                                     runShootingForwarAnim.setCurrentFrame(runForwardAnim.getCurrentFrame() - 1);
@@ -229,7 +227,7 @@ namespace Megaman.src.GameObject
                             }
                             else if (getSpeedX() < 0)
                             {
-                                runBackAnim.Update(System.nanoTime());
+                                runBackAnim.Update(DateTime.Now);
                                 if (isShooting)
                                 {
                                     runShootingBackAnim.setCurrentFrame(runBackAnim.getCurrentFrame() - 1);
@@ -241,16 +239,16 @@ namespace Megaman.src.GameObject
                             }
                             else
                             {
-                                if (getDirection() == RIGHT_DIR)
+                                if (getDirection() == MainDir.RIGHT_DIR)
                                 {
                                     if (isShooting)
                                     {
-                                        idleShootingForwardAnim.Update(System.nanoTime());
+                                        idleShootingForwardAnim.Update(DateTime.Now);
                                         idleShootingForwardAnim.draw((int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY(), g2);
                                     }
                                     else
                                     {
-                                        idleForwardAnim.Update(System.nanoTime());
+                                        idleForwardAnim.Update(DateTime.Now);
                                         idleForwardAnim.draw((int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY(), g2);
                                     }
                                 }
@@ -258,12 +256,12 @@ namespace Megaman.src.GameObject
                                 {
                                     if (isShooting)
                                     {
-                                        idleShootingBackAnim.Update(System.nanoTime());
+                                        idleShootingBackAnim.Update(DateTime.Now);
                                         idleShootingBackAnim.draw((int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY(), g2);
                                     }
                                     else
                                     {
-                                        idleBackAnim.Update(System.nanoTime());
+                                        idleBackAnim.Update(DateTime.Now);
                                         idleBackAnim.draw((int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY(), g2);
                                     }
                                 }
@@ -273,8 +271,8 @@ namespace Megaman.src.GameObject
 
                     break;
 
-                case BEHURT:
-                    if (getDirection() == RIGHT_DIR)
+                case MainState.BEHURT:
+                    if (getDirection() == MainDir.RIGHT_DIR)
                     {
                         behurtForwardAnim.draw((int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY(), g2);
                     }
@@ -285,7 +283,7 @@ namespace Megaman.src.GameObject
                     }
                     break;
 
-                case FEY:
+                case MainState.FEY:
 
                     break;
 
@@ -298,7 +296,7 @@ namespace Megaman.src.GameObject
         //@Override
         public override void run()
         {
-            if (getDirection() == LEFT_DIR)
+            if (getDirection() == MainDir.LEFT_DIR)
                 setSpeedX(-3);
             else setSpeedX(3);
         }
@@ -376,10 +374,10 @@ namespace Megaman.src.GameObject
             if (!isShooting && !getIsDicking())
             {
 
-                shooting1.play();
+               // shooting1.play();
 
                 Bullet bullet = new BlueFire(getPosX(), getPosY(), getGameWorld());
-                if (getDirection() == LEFT_DIR)
+                if (getDirection() == MainDir.LEFT_DIR)
                 {
                     bullet.setSpeedX(-10);
                     bullet.setPosX(bullet.getPosX() - 40);
@@ -405,7 +403,7 @@ namespace Megaman.src.GameObject
                 bullet.setTeamType(getTeamType());
                 getGameWorld().bulletManager.addObject(bullet);
 
-                lastShootingTime = System.nanoTime();
+                lastShootingTime = DateTime.Now;
                 isShooting = true;
 
             }
@@ -415,7 +413,7 @@ namespace Megaman.src.GameObject
         public override void hurtingCallback()
         {
             MessageBox.Show("Call back hurting");
-            hurtingSound.play();
+            //hurtingSound.play();
         }
 
     }

@@ -17,7 +17,7 @@ namespace Megaman.src.State
 
 
         private Image bufferedImage;
-        private int lastState;
+        private GameState lastState;
 
         public ParticularObjectManager particularObjectManager;
         public BulletManager bulletManager;
@@ -29,21 +29,21 @@ namespace Megaman.src.State
         public Camera camera;
 
         public static readonly int readonlyBossX = 3600;
-
-        public static readonly int INIT_GAME = 0;
-        public static readonly int TUTORIAL = 1;
-        public static readonly int GAMEPLAY = 2;
-        public static readonly int GAMEOVER = 3;
-        public static readonly int GAMEWIN = 4;
-        public static readonly int PAUSEGAME = 5;
-
-        public static readonly int INTROGAME = 0;
-        public static readonly int MEETreadonlyBOSS = 1;
+        public enum GameState { INIT_GAME, TUTORIAL, GAMEPLAY, GAMEOVER, GAMEWIN, PAUSEGAME }
+        //public static readonly int INIT_GAME = 0;
+        //public static readonly int TUTORIAL = 1;
+        //public static readonly int GAMEPLAY = 2;
+        //public static readonly int GAMEOVER = 3;
+        //public static readonly int GAMEWIN = 4;
+        //public static readonly int PAUSEGAME = 5;
+        public enum TutorialState { INTROGAME, MEETreadonlyBOSS }
+        //public static readonly int INTROGAME = 0;
+        //public static readonly int MEETreadonlyBOSS = 1;
 
         public int openIntroGameY = 0;
-        public int state = INIT_GAME;
-        public int previousState = state;
-        public int tutorialState = INTROGAME;
+        public GameState state = GameState.INIT_GAME;
+        public GameState previousState;
+        public TutorialState tutorialState = TutorialState.INTROGAME;
 
         public int storyTutorial = 0;
         public String[] texts1 = new String[4];
@@ -59,7 +59,7 @@ namespace Megaman.src.State
 
         private int numberOfLife = 3;
 
-        public AudioClip bgMusic;
+        //public AudioClip bgMusic;
 
         public GameWorldState(GamePanel gamePanel) : base(gamePanel)
         {
@@ -71,7 +71,7 @@ namespace Megaman.src.State
             textTutorial = texts1[0];
 
 
-            bufferedImage = new Image(GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT, Image.TYPE_INT_ARGB);
+            bufferedImage = new Bitmap(GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT);
             megaMan = new MegaMan(400, 400, this);
             physicalMap = new PhysicalMap(0, 0, this);
             backgroundMap = new BackgroundMap(0, 0, this);
@@ -83,72 +83,72 @@ namespace Megaman.src.State
 
             initEnemies();
 
-            bgMusic = CacheDataLoader.getInstance().getSound("bgmusic");
-
+            //bgMusic = CacheDataLoader.getInstance().getSound("bgmusic");
+            previousState = state;
         }
 
         private void initEnemies()
         {
-            ParticularObject redeye = new RedEyeDevil(1250, 410, this);
-            redeye.setDirection(ParticularObject.LEFT_DIR);
-            redeye.setTeamType(ParticularObject.ENEMY_TEAM);
-            particularObjectManager.addObject(redeye);
+            //ParticularObject redeye = new RedEyeDevil(1250, 410, this);
+            //redeye.setDirection(ParticularObject.LEFT_DIR);
+            //redeye.setTeamType(ParticularObject.ENEMY_TEAM);
+            //particularObjectManager.addObject(redeye);
 
-            ParticularObject smallRedGun = new SmallRedGun(1600, 180, this);
-            smallRedGun.setDirection(ParticularObject.LEFT_DIR);
-            smallRedGun.setTeamType(ParticularObject.ENEMY_TEAM);
-            particularObjectManager.addObject(smallRedGun);
+            //ParticularObject smallRedGun = new SmallRedGun(1600, 180, this);
+            //smallRedGun.setDirection(ParticularObject.LEFT_DIR);
+            //smallRedGun.setTeamType(ParticularObject.ENEMY_TEAM);
+            //particularObjectManager.addObject(smallRedGun);
 
-            ParticularObject darkraise = new DarkRaise(2000, 200, this);
-            darkraise.setTeamType(ParticularObject.ENEMY_TEAM);
-            particularObjectManager.addObject(darkraise);
+            //ParticularObject darkraise = new DarkRaise(2000, 200, this);
+            //darkraise.setTeamType(ParticularObject.ENEMY_TEAM);
+            //particularObjectManager.addObject(darkraise);
 
-            ParticularObject darkraise2 = new DarkRaise(2800, 350, this);
-            darkraise2.setTeamType(ParticularObject.ENEMY_TEAM);
-            particularObjectManager.addObject(darkraise2);
+            //ParticularObject darkraise2 = new DarkRaise(2800, 350, this);
+            //darkraise2.setTeamType(ParticularObject.ENEMY_TEAM);
+            //particularObjectManager.addObject(darkraise2);
 
-            ParticularObject robotR = new RobotR(900, 400, this);
-            robotR.setTeamType(ParticularObject.ENEMY_TEAM);
-            particularObjectManager.addObject(robotR);
+            //ParticularObject robotR = new RobotR(900, 400, this);
+            //robotR.setTeamType(ParticularObject.ENEMY_TEAM);
+            //particularObjectManager.addObject(robotR);
 
-            ParticularObject robotR2 = new RobotR(3400, 350, this);
-            robotR2.setTeamType(ParticularObject.ENEMY_TEAM);
-            particularObjectManager.addObject(robotR2);
-
-
-            ParticularObject redeye2 = new RedEyeDevil(2500, 500, this);
-            redeye2.setDirection(ParticularObject.LEFT_DIR);
-            redeye2.setTeamType(ParticularObject.ENEMY_TEAM);
-            particularObjectManager.addObject(redeye2);
-
-            ParticularObject redeye3 = new RedEyeDevil(3450, 500, this);
-            redeye3.setDirection(ParticularObject.LEFT_DIR);
-            redeye3.setTeamType(ParticularObject.ENEMY_TEAM);
-            particularObjectManager.addObject(redeye3);
-
-            ParticularObject redeye4 = new RedEyeDevil(500, 1190, this);
-            redeye4.setDirection(ParticularObject.RIGHT_DIR);
-            redeye4.setTeamType(ParticularObject.ENEMY_TEAM);
-            particularObjectManager.addObject(redeye4);
+            //ParticularObject robotR2 = new RobotR(3400, 350, this);
+            //robotR2.setTeamType(ParticularObject.ENEMY_TEAM);
+            //particularObjectManager.addObject(robotR2);
 
 
-            ParticularObject darkraise3 = new DarkRaise(750, 650, this);
-            darkraise3.setTeamType(ParticularObject.ENEMY_TEAM);
-            particularObjectManager.addObject(darkraise3);
+            //ParticularObject redeye2 = new RedEyeDevil(2500, 500, this);
+            //redeye2.setDirection(ParticularObject.LEFT_DIR);
+            //redeye2.setTeamType(ParticularObject.ENEMY_TEAM);
+            //particularObjectManager.addObject(redeye2);
 
-            ParticularObject robotR3 = new RobotR(1500, 1150, this);
-            robotR3.setTeamType(ParticularObject.ENEMY_TEAM);
-            particularObjectManager.addObject(robotR3);
+            //ParticularObject redeye3 = new RedEyeDevil(3450, 500, this);
+            //redeye3.setDirection(ParticularObject.LEFT_DIR);
+            //redeye3.setTeamType(ParticularObject.ENEMY_TEAM);
+            //particularObjectManager.addObject(redeye3);
+
+            //ParticularObject redeye4 = new RedEyeDevil(500, 1190, this);
+            //redeye4.setDirection(ParticularObject.RIGHT_DIR);
+            //redeye4.setTeamType(ParticularObject.ENEMY_TEAM);
+            //particularObjectManager.addObject(redeye4);
+
+
+            //ParticularObject darkraise3 = new DarkRaise(750, 650, this);
+            //darkraise3.setTeamType(ParticularObject.ENEMY_TEAM);
+            //particularObjectManager.addObject(darkraise3);
+
+            //ParticularObject robotR3 = new RobotR(1500, 1150, this);
+            //robotR3.setTeamType(ParticularObject.ENEMY_TEAM);
+            //particularObjectManager.addObject(robotR3);
 
 
 
-            ParticularObject smallRedGun2 = new SmallRedGun(1700, 980, this);
-            smallRedGun2.setDirection(ParticularObject.LEFT_DIR);
-            smallRedGun2.setTeamType(ParticularObject.ENEMY_TEAM);
-            particularObjectManager.addObject(smallRedGun2);
+            //ParticularObject smallRedGun2 = new SmallRedGun(1700, 980, this);
+            //smallRedGun2.setDirection(ParticularObject.LEFT_DIR);
+            //smallRedGun2.setTeamType(ParticularObject.ENEMY_TEAM);
+            //particularObjectManager.addObject(smallRedGun2);
         }
 
-        public void switchState(int state)
+        public void switchState(GameState state)
         {
             previousState = this.state;
             this.state = state;
@@ -158,7 +158,7 @@ namespace Megaman.src.State
         {
             switch (tutorialState)
             {
-                case INTROGAME:
+                case TutorialState.INTROGAME:
 
                     if (storyTutorial == 0)
                     {
@@ -172,10 +172,10 @@ namespace Megaman.src.State
                     else
                     {
 
-                        if (currentSize < textTutorial.length()) currentSize++;
+                        if (currentSize < textTutorial.Length) currentSize++;
                     }
                     break;
-                case MEETreadonlyBOSS:
+                case TutorialState.MEETreadonlyBOSS:
                     if (storyTutorial == 0)
                     {
                         if (openIntroGameY >= 450)
@@ -189,7 +189,7 @@ namespace Megaman.src.State
 
                         if (megaMan.getPosX() < readonlyBossX + 150)
                         {
-                            megaMan.setDirection(ParticularObject.RIGHT_DIR);
+                            megaMan.setDirection(ParticularObject.MainDir.RIGHT_DIR);
                             megaMan.run();
                             megaMan.Update();
                         }
@@ -200,7 +200,7 @@ namespace Megaman.src.State
 
                         if (openIntroGameY < 450 && camera.getPosX() >= readonlyBossX && megaMan.getPosX() >= readonlyBossX + 150)
                         {
-                            camera.lock () ;
+                            camera.Lock();
                             storyTutorial++;
                             megaMan.stopRun();
                             physicalMap.phys_map[14][120] = 1;
@@ -218,7 +218,7 @@ namespace Megaman.src.State
                     else
                     {
 
-                        if (currentSize < textTutorial.length()) currentSize++;
+                        if (currentSize < textTutorial.Length) currentSize++;
                     }
                     break;
             }
@@ -226,42 +226,48 @@ namespace Megaman.src.State
 
         private void drawString(Graphics g2, String text, int x, int y)
         {
-            foreach (String str in text.split("\n"))
-                g2.drawString(str, x, y += g2.getFontMetrics().getHeight());
+            foreach (String str in text.Split(new char[] { '\n' }))
+            {
+                
+                Font font = new Font("Verdana", 15);
+                g2.DrawString(str, font, new SolidBrush(Color.Black), x, y += font.Height);
+            }
         }
+
+
 
         private void TutorialRender(Graphics g2)
         {
+            SolidBrush brush = new SolidBrush(Color.White);
             switch (tutorialState)
             {
-                case INTROGAME:
+                case TutorialState.INTROGAME:
                     int yMid = GameFrame.SCREEN_HEIGHT / 2 - 15;
                     int y1 = yMid - GameFrame.SCREEN_HEIGHT / 2 - openIntroGameY / 2;
                     int y2 = yMid + openIntroGameY / 2;
-
-                    g2.setColor(Color.BLACK);
-                    g2.fillRect(0, y1, GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT / 2);
-                    g2.fillRect(0, y2, GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT / 2);
+                    brush.Color = Color.Black;
+                    g2.FillRectangle(brush, 0, y1, GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT / 2);
+                    g2.FillRectangle(brush, 0, y2, GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT / 2);
 
                     if (storyTutorial >= 1)
                     {
-                        g2.drawImage(avatar.getImage(), 600, 350, null);
-                        g2.setColor(Color.BLUE);
-                        g2.fillRect(280, 450, 350, 80);
-                        g2.setColor(Color.WHITE);
-                        String text = textTutorial.substring(0, currentSize - 1);
+                        g2.DrawImage(avatar.getImage(), 600, 350);
+                        brush.Color = Color.Blue;
+                        g2.FillRectangle(brush, 280, 450, 350, 80);
+                        brush.Color = Color.White;
+                        String text = textTutorial.Substring(0, currentSize - 1);
                         drawString(g2, text, 290, 480);
                     }
 
                     break;
-                case MEETreadonlyBOSS:
+                case TutorialState.MEETreadonlyBOSS:
                     yMid = GameFrame.SCREEN_HEIGHT / 2 - 15;
                     y1 = yMid - GameFrame.SCREEN_HEIGHT / 2 - openIntroGameY / 2;
                     y2 = yMid + openIntroGameY / 2;
 
-                    g2.setColor(Color.BLACK);
-                    g2.fillRect(0, y1, GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT / 2);
-                    g2.fillRect(0, y2, GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT / 2);
+                    brush.Color = Color.Black;
+                    g2.FillRectangle(brush, 0, y1, GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT / 2);
+                    g2.FillRectangle(brush, 0, y2, GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT / 2);
                     break;
             }
         }
@@ -271,14 +277,14 @@ namespace Megaman.src.State
 
             switch (state)
             {
-                case INIT_GAME:
+                case GameState.INIT_GAME:
 
                     break;
-                case TUTORIAL:
+                case GameState.TUTORIAL:
                     TutorialUpdate();
 
                     break;
-                case GAMEPLAY:
+                case GameState.GAMEPLAY:
                     particularObjectManager.UpdateObjects();
                     bulletManager.UpdateObjects();
 
@@ -289,42 +295,42 @@ namespace Megaman.src.State
                     if (megaMan.getPosX() > readonlyBossX && readonlybossTrigger)
                     {
                         readonlybossTrigger = false;
-                        switchState(TUTORIAL);
-                        tutorialState = MEETreadonlyBOSS;
+                        switchState(GameState.TUTORIAL);
+                        tutorialState = TutorialState.MEETreadonlyBOSS;
                         storyTutorial = 0;
                         openIntroGameY = 550;
 
                         boss = new readonlyBoss(readonlyBossX + 700, 460, this);
                         boss.setTeamType(ParticularObject.ENEMY_TEAM);
-                        boss.setDirection(ParticularObject.LEFT_DIR);
+                        boss.setDirection(ParticularObject.MainDir.L);
                         particularObjectManager.addObject(boss);
 
                     }
 
-                    if (megaMan.getState() == ParticularObject.DEATH)
+                    if (megaMan.getState() == ParticularObject.MainState.DEATH)
                     {
                         numberOfLife--;
                         if (numberOfLife >= 0)
                         {
                             megaMan.setBlood(100);
                             megaMan.setPosY(megaMan.getPosY() - 50);
-                            megaMan.setState(ParticularObject.NOBEHURT);
+                            megaMan.setState(ParticularObject.MainState.NOBEHURT);
                             particularObjectManager.addObject(megaMan);
                         }
                         else
                         {
-                            switchState(GAMEOVER);
-                            bgMusic.stop();
+                            switchState(GameState.GAMEOVER);
+                            //bgMusic.stop();
                         }
                     }
-                    if (!readonlybossTrigger && boss.getState() == ParticularObject.DEATH)
-                        switchState(GAMEWIN);
+                    if (!readonlybossTrigger && boss.getState() == ParticularObject.MainState.DEATH)
+                        switchState(GameState.GAMEWIN);
 
                     break;
-                case GAMEOVER:
+                case GameState.GAMEOVER:
 
                     break;
-                case GAMEWIN:
+                case GameState.GAMEWIN:
 
                     break;
             }
@@ -335,70 +341,71 @@ namespace Megaman.src.State
         public override void Render()
         {
 
-            Graphics2D g2 = (Graphics2D)bufferedImage.getGraphics();
-
+            Graphics g2 = Graphics.FromImage(bufferedImage);
+            SolidBrush brush = new SolidBrush(Color.White);
+            Font font = new Font("Verdana", 14);
             if (g2 != null)
             {
 
                 // NOTE: two lines below make the error splash white screen....
                 // need to remove this line
-                //g2.setColor(Color.WHITE);
-                //g2.fillRect(0, 0, GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT);
+                ////g2.setColor(Color.WHITE);
+                //g2.FillRectangle(brush,0, 0, GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT);
 
 
                 //physicalMap.draw(g2);
 
                 switch (state)
                 {
-                    case INIT_GAME:
-                        g2.setColor(Color.BLACK);
-                        g2.fillRect(0, 0, GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT);
-                        g2.setColor(Color.WHITE);
-                        g2.drawString("PRESS ENTER TO CONTINUE", 400, 300);
+                    case GameState.INIT_GAME:
+                        brush.Color = Color.Black;
+                        g2.FillRectangle(brush, 0, 0, GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT);
+                        brush.Color = Color.White;
+                        g2.DrawString("PRESS ENTER TO CONTINUE", font, brush, 400, 300);
                         break;
-                    case PAUSEGAME:
-                        g2.setColor(Color.BLACK);
-                        g2.fillRect(300, 260, 500, 70);
-                        g2.setColor(Color.WHITE);
-                        g2.drawString("PRESS ENTER TO CONTINUE", 400, 300);
+                    case GameState.PAUSEGAME:
+                        brush.Color = Color.Black;
+                        g2.FillRectangle(brush, 300, 260, 500, 70);
+                        brush.Color = Color.White;
+                        g2.DrawString("PRESS ENTER TO CONTINUE", font, brush, 400, 300);
                         break;
-                    case TUTORIAL:
+                    case GameState.TUTORIAL:
                         backgroundMap.draw(g2);
-                        if (tutorialState == MEETreadonlyBOSS)
+                        if (tutorialState == TutorialState.MEETreadonlyBOSS)
                         {
                             particularObjectManager.draw(g2);
                         }
                         TutorialRender(g2);
 
                         break;
-                    case GAMEWIN:
-                    case GAMEPLAY:
+                    case GameState.GAMEWIN:
+                    case GameState.GAMEPLAY:
                         backgroundMap.draw(g2);
                         particularObjectManager.draw(g2);
                         bulletManager.draw(g2);
 
-                        g2.setColor(Color.GRAY);
-                        g2.fillRect(19, 59, 102, 22);
-                        g2.setColor(Color.red);
-                        g2.fillRect(20, 60, megaMan.getBlood(), 20);
+                        brush.Color = Color.Gray;
+                        g2.FillRectangle(brush, 19, 59, 102, 22);
+                        brush.Color = Color.Red;
+                        g2.FillRectangle(brush, 20, 60, megaMan.getBlood(), 20);
 
                         for (int i = 0; i < numberOfLife; i++)
                         {
-                            g2.drawImage(CacheDataLoader.getInstance().getFrameImage("hearth").getImage(), 20 + i * 40, 18, null);
+                            g2.DrawImage(CacheDataLoader.getInstance().getFrameImage("hearth").getImage(), 20 + i * 40, 18);
                         }
 
 
-                        if (state == GAMEWIN)
+                        if (state == GameState.GAMEWIN)
                         {
-                            g2.drawImage(CacheDataLoader.getInstance().getFrameImage("gamewin").getImage(), 300, 300, null);
+                            g2.DrawImage(CacheDataLoader.getInstance().getFrameImage("gamewin").getImage(), 300, 300);
                         }
 
                         break;
-                    case GAMEOVER:
-                        g2.setColor(Color.BLACK);
-                        g2.fillRect(0, 0, GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT);
-                        g2.setColor(Color.WHITE);
-                        g2.drawString("GAME OVER!", 450, 300);
+                    case GameState.GAMEOVER:
+                        brush.Color = Color.Black;
+                        g2.FillRectangle(brush, 0, 0, GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT);
+                        brush.Color = Color.White;
+                        g2.DrawString("GAME OVER!", font, brush, 450, 300);
                         break;
 
                 }
@@ -413,7 +420,6 @@ namespace Megaman.src.State
             return bufferedImage;
         }
 
-        //@Override
         public override void setPressedButton(Keys code)
         {
             switch (code)
@@ -424,26 +430,26 @@ namespace Megaman.src.State
                     break;
 
                 case Keys.Right:
-                    megaMan.setDirection(megaMan.RIGHT_DIR);
+                    megaMan.setDirection(ParticularObject.MainDir.RIGHT_DIR);
                     megaMan.run();
                     break;
 
                 case Keys.Left:
-                    megaMan.setDirection(megaMan.LEFT_DIR);
+                    megaMan.setDirection(ParticularObject.MainDir.LEFT_DIR);
                     megaMan.run();
                     break;
 
                 case Keys.Enter:
-                    if (state == GameWorldState.INIT_GAME)
+                    if (state == GameState.INIT_GAME)
                     {
-                        if (previousState == GameWorldState.GAMEPLAY)
-                            switchState(GameWorldState.GAMEPLAY);
-                        else switchState(GameWorldState.TUTORIAL);
+                        if (previousState == GameState.GAMEPLAY)
+                            switchState(GameState.GAMEPLAY);
+                        else switchState(GameState.TUTORIAL);
 
-                        bgMusic.loop();
-                        bgMusic.play();
+                        //bgMusic.loop();
+                        //bgMusic.play();
                     }
-                    if (state == GameWorldState.TUTORIAL && storyTutorial >= 1)
+                    if (state == GameState.TUTORIAL && storyTutorial >= 1)
                     {
                         if (storyTutorial <= 3)
                         {
@@ -453,13 +459,13 @@ namespace Megaman.src.State
                         }
                         else
                         {
-                            switchState(GameWorldState.GAMEPLAY);
+                            switchState(GameState.GAMEPLAY);
                         }
 
                         // for meeting boss tutorial
-                        if (tutorialState == GameWorldState.MEETreadonlyBOSS)
+                        if (tutorialState == TutorialState.MEETreadonlyBOSS)
                         {
-                            switchState(GameWorldState.GAMEPLAY);
+                            switchState(GameState.GAMEPLAY);
                         }
                     }
                     break;
@@ -500,11 +506,11 @@ namespace Megaman.src.State
                     break;
 
                 case Keys.Enter:
-                    if (state == GAMEOVER || state == GAMEWIN)
+                    if (state == GameState.GAMEOVER || state == GameState.GAMEWIN)
                     {
                         gamePanel.setState(new MenuState(gamePanel));
                     }
-                    else if (state == PAUSEGAME)
+                    else if (state == GameState.PAUSEGAME)
                     {
                         state = lastState;
                     }
@@ -519,7 +525,7 @@ namespace Megaman.src.State
                     break;
                 case Keys.Escape:
                     lastState = state;
-                    state = PAUSEGAME;
+                    state = GameState.PAUSEGAME;
                     break;
 
             }

@@ -1,173 +1,176 @@
-﻿using System;
+﻿using Megaman.src.Effect;
+using Megaman.src.State;
+using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Megaman.src.GameObject
 {
-    public class PhysicalMap extends GameObject
+    public class PhysicalMap : GameObject
     {
 
-    public int[][] phys_map;
-    private int tileSize;
+        public int[,] phys_map;
+        private int tileSize;
 
-    public PhysicalMap(float x, float y, GameWorldState gameWorld)
-    {
-        super(x, y, gameWorld);
-        this.tileSize = 30;
-        phys_map = CacheDataLoader.getInstance().getPhysicalMap();
-    }
-
-    public int getTileSize()
-    {
-        return tileSize;
-    }
-
-    @Override
-    public void Update() { }
-
-
-    public Rectangle haveCollisionWithTop(Rectangle rect)
-    {
-
-        int posX1 = rect.x / tileSize;
-        posX1 -= 2;
-        int posX2 = (rect.x + rect.width) / tileSize;
-        posX2 += 2;
-
-        //int posY = (rect.y + rect.height)/tileSize;
-        int posY = rect.y / tileSize;
-
-        if (posX1 < 0) posX1 = 0;
-
-        if (posX2 >= phys_map[0].length) posX2 = phys_map[0].length - 1;
-
-        for (int y = posY; y >= 0; y--)
+        public PhysicalMap(float x, float y, GameWorldState gameWorld) : base(x, y, gameWorld)
         {
+
+            this.tileSize = 30;
+            phys_map = CacheDataLoader.getInstance().getPhysicalMap();
+        }
+
+        public int getTileSize()
+        {
+            return tileSize;
+        }
+
+        //@Override
+        public override void Update(GameTime gameTime) { }
+
+
+        public Rectangle haveCollisionWithTop(Rectangle rect)
+        {
+            int posX1 = rect.X / tileSize;
+            posX1 -= 2;
+            int posX2 = (rect.X + rect.Width) / tileSize;
+            posX2 += 2;
+
+            //int posY = (rect.y + rect.height)/tileSize;
+            int posY = rect.Y / tileSize;
+
+            if (posX1 < 0) posX1 = 0;
+
+            if (posX2 >= phys_map.GetLength(1)) posX2 = phys_map.GetLength(1);
+
+            for (int y = posY; y >= 0; y--)
+            {
+                for (int x = posX1; x <= posX2; x++)
+                {
+
+                    if (phys_map[y, x] == 1)
+                    {
+                        Rectangle r = new Rectangle((int)getPosX() + x * tileSize, (int)getPosY() + y * tileSize, tileSize, tileSize);
+                        if (rect.IntersectsWith(r))
+                            return r;
+                    }
+                }
+            }
+            return null;
+
+        }
+
+
+        public Rectangle haveCollisionWithLand(Rectangle rect)
+        {
+
+            int posX1 = rect.X / tileSize;
+            posX1 -= 2;
+            int posX2 = (rect.X + rect.Width) / tileSize;
+            posX2 += 2;
+
+            int posY = (rect.Y + rect.Height) / tileSize;
+
+            if (posX1 < 0) posX1 = 0;
+
+            if (posX2 >= phys_map.GetLength(1)) posX2 = phys_map.GetLength(1) - 1;
+            for (int y = posY; y < phys_map.Length; y++)
+            {
+                for (int x = posX1; x <= posX2; x++)
+                {
+
+                    if (phys_map[y,x] == 1)
+                    {
+                        Rectangle r = new Rectangle((int)getPosX() + x * tileSize, (int)getPosY() + y * tileSize, tileSize, tileSize);
+                        if (rect.IntersectsWith(r))
+                            return r;
+                    }
+                }
+            }
+            return null;
+        }
+
+        public Rectangle haveCollisionWithRightWall(Rectangle rect)
+        {
+
+
+            int posY1 = rect.Y / tileSize;
+            posY1 -= 2;
+            int posY2 = (rect.Y + rect.Height) / tileSize;
+            posY2 += 2;
+
+            int posX1 = (rect.X + rect.Width) / tileSize;
+            int posX2 = posX1 + 3;
+            if (posX2 >= phys_map.GetLength(1)) posX2 = phys_map.GetLength(1) - 1;
+
+            if (posY1 < 0) posY1 = 0;
+            if (posY2 >= phys_map.Length) posY2 = phys_map.Length - 1;
+
+
             for (int x = posX1; x <= posX2; x++)
             {
-
-                if (phys_map[y][x] == 1)
+                for (int y = posY1; y <= posY2; y++)
                 {
-                    Rectangle r = new Rectangle((int)getPosX() + x * tileSize, (int)getPosY() + y * tileSize, tileSize, tileSize);
-                    if (rect.intersects(r))
-                        return r;
+                    if (phys_map[y, x] == 1)
+                    {
+                        Rectangle r = new Rectangle((int)getPosX() + x * tileSize, (int)getPosY() + y * tileSize, tileSize, tileSize);
+                        if (r.Y < rect.Y + rect.Height - 1 && rect.IntersectsWith(r))
+                            return r;
+                    }
                 }
             }
+            return null;
+
         }
-        return null;
-    }
 
-
-    public Rectangle haveCollisionWithLand(Rectangle rect)
-    {
-
-        int posX1 = rect.x / tileSize;
-        posX1 -= 2;
-        int posX2 = (rect.x + rect.width) / tileSize;
-        posX2 += 2;
-
-        int posY = (rect.y + rect.height) / tileSize;
-
-        if (posX1 < 0) posX1 = 0;
-
-        if (posX2 >= phys_map[0].length) posX2 = phys_map[0].length - 1;
-        for (int y = posY; y < phys_map.length; y++)
+        public Rectangle haveCollisionWithLeftWall(Rectangle rect)
         {
-            for (int x = posX1; x <= posX2; x++)
-            {
 
-                if (phys_map[y][x] == 1)
+
+
+            int posY1 = rect.Y / tileSize;
+            posY1 -= 2;
+            int posY2 = (rect.Y + rect.Height) / tileSize;
+            posY2 += 2;
+
+            int posX1 = (rect.X + rect.Width) / tileSize;
+            int posX2 = posX1 - 3;
+            if (posX2 < 0) posX2 = 0;
+
+            if (posY1 < 0) posY1 = 0;
+            if (posY2 >= phys_map.Length) posY2 = phys_map.Length - 1;
+
+
+            for (int x = posX1; x >= posX2; x--)
+            {
+                for (int y = posY1; y <= posY2; y++)
                 {
-                    Rectangle r = new Rectangle((int)getPosX() + x * tileSize, (int)getPosY() + y * tileSize, tileSize, tileSize);
-                    if (rect.intersects(r))
-                        return r;
+                    if (phys_map[y, x] == 1)
+                    {
+                        Rectangle r = new Rectangle((int)getPosX() + x * tileSize, (int)getPosY() + y * tileSize, tileSize, tileSize);
+                        if (r.Y < rect.Y + rect.Height - 1 && rect.IntersectsWith(r))
+                            return r;
+                    }
                 }
             }
+            return null;
+
         }
-        return null;
-    }
 
-    public Rectangle haveCollisionWithRightWall(Rectangle rect)
-    {
-
-
-        int posY1 = rect.y / tileSize;
-        posY1 -= 2;
-        int posY2 = (rect.y + rect.height) / tileSize;
-        posY2 += 2;
-
-        int posX1 = (rect.x + rect.width) / tileSize;
-        int posX2 = posX1 + 3;
-        if (posX2 >= phys_map[0].length) posX2 = phys_map[0].length - 1;
-
-        if (posY1 < 0) posY1 = 0;
-        if (posY2 >= phys_map.length) posY2 = phys_map.length - 1;
-
-
-        for (int x = posX1; x <= posX2; x++)
+        public void draw(Graphics g2)
         {
-            for (int y = posY1; y <= posY2; y++)
-            {
-                if (phys_map[y][x] == 1)
-                {
-                    Rectangle r = new Rectangle((int)getPosX() + x * tileSize, (int)getPosY() + y * tileSize, tileSize, tileSize);
-                    if (r.y < rect.y + rect.height - 1 && rect.intersects(r))
-                        return r;
-                }
-            }
+
+            Camera camera = getGameWorld().camera;
+            SolidBrush brush = new SolidBrush(Color.Gray);
+            //g2.setColor(Color.GRAY);
+            for (int i = 0; i < phys_map.Length; i++)
+                for (int j = 0; j < phys_map.GetLength(1); j++)
+                    if (phys_map[i,j] != 0) g2.FillRectangle(brush,(int)getPosX() + j * tileSize - (int)camera.getPosX(),
+                               (int)getPosY() + i * tileSize - (int)camera.getPosY(), tileSize, tileSize);
+
         }
-        return null;
 
     }
-
-    public Rectangle haveCollisionWithLeftWall(Rectangle rect)
-    {
-
-
-
-        int posY1 = rect.y / tileSize;
-        posY1 -= 2;
-        int posY2 = (rect.y + rect.height) / tileSize;
-        posY2 += 2;
-
-        int posX1 = (rect.x + rect.width) / tileSize;
-        int posX2 = posX1 - 3;
-        if (posX2 < 0) posX2 = 0;
-
-        if (posY1 < 0) posY1 = 0;
-        if (posY2 >= phys_map.length) posY2 = phys_map.length - 1;
-
-
-        for (int x = posX1; x >= posX2; x--)
-        {
-            for (int y = posY1; y <= posY2; y++)
-            {
-                if (phys_map[y][x] == 1)
-                {
-                    Rectangle r = new Rectangle((int)getPosX() + x * tileSize, (int)getPosY() + y * tileSize, tileSize, tileSize);
-                    if (r.y < rect.y + rect.height - 1 && rect.intersects(r))
-                        return r;
-                }
-            }
-        }
-        return null;
-
-    }
-
-    public void draw(Graphics2D g2)
-    {
-
-        Camera camera = getGameWorld().camera;
-
-        g2.setColor(Color.GRAY);
-        for (int i = 0; i < phys_map.length; i++)
-            for (int j = 0; j < phys_map[0].length; j++)
-                if (phys_map[i][j] != 0) g2.fillRect((int)getPosX() + j * tileSize - (int)camera.getPosX(),
-                           (int)getPosY() + i * tileSize - (int)camera.getPosY(), tileSize, tileSize);
-
-    }
-
-}
 }

@@ -9,7 +9,7 @@ namespace Megaman.src.GameObject
 {
 	public abstract class GameObject
 	{
-
+		public enum MainState { ALIVE, BEHURT, FEY, DEATH, NOBEHURT };
 		private float posX;
 		private float posY;
 
@@ -47,7 +47,7 @@ namespace Megaman.src.GameObject
 			return gameWorld;
 		}
 
-		public abstract void Update();
+		public abstract void Update(GameTime gameTime);
 
 	}
 

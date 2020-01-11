@@ -17,7 +17,7 @@ namespace Megaman.src.GameObject
 
         public Human(float x, float y, float width, float height, float mass, int blood, GameWorldState gameWorld) : base(x, y, width, height, mass, blood, gameWorld)
         {
-            setState(ALIVE);
+            setState(MainState.ALIVE);
         }
 
         public abstract void run();
@@ -61,12 +61,12 @@ namespace Megaman.src.GameObject
         }
 
         //@Override
-        public override void Update()
+        public override void Update(GameTime gameTime)
         {
 
-            base.Update();
+            base.Update(gameTime);
 
-            if (getState() == ALIVE || getState() == NOBEHURT)
+            if (getState() == MainState.ALIVE || getState() == MainState.NOBEHURT)
             {
 
                 if (!isLanding)
@@ -75,7 +75,7 @@ namespace Megaman.src.GameObject
                     setPosX(getPosX() + getSpeedX());
 
 
-                    if (getDirection() == LEFT_DIR &&
+                    if (getDirection() == MainDir.LEFT_DIR &&
                             getGameWorld().physicalMap.haveCollisionWithLeftWall(getBoundForCollisionWithMap()) != null)
                     {
 
@@ -83,7 +83,7 @@ namespace Megaman.src.GameObject
                         setPosX(rectLeftWall.X + rectLeftWall.Width + getWidth() / 2);
 
                     }
-                    if (getDirection() == RIGHT_DIR &&
+                    if (getDirection() == MainDir.RIGHT_DIR &&
                             getGameWorld().physicalMap.haveCollisionWithRightWall(getBoundForCollisionWithMap()) != null)
                     {
 
@@ -100,7 +100,7 @@ namespace Megaman.src.GameObject
                     // plus (+2) because we must check below the character when he's speedY = 0
 
                     Rectangle boundForCollisionWithMapFuture = getBoundForCollisionWithMap();
-                    boundForCollisionWithMapFuture.y += (getSpeedY() != 0 ? getSpeedY() : 2);
+                    boundForCollisionWithMapFuture.Y += (getSpeedY() != 0 ? (int)getSpeedY() : 2);
                     Rectangle rectLand = getGameWorld().physicalMap.haveCollisionWithLand(boundForCollisionWithMapFuture);
 
                     Rectangle rectTop = getGameWorld().physicalMap.haveCollisionWithTop(boundForCollisionWithMapFuture);

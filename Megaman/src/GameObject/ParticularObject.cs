@@ -14,16 +14,15 @@ namespace Megaman.src.GameObject
 
         public static readonly int LEAGUE_TEAM = 1;
         public static readonly int ENEMY_TEAM = 2;
-
-        public static readonly int LEFT_DIR = 0;
-        public static readonly int RIGHT_DIR = 1;
-
-        public static readonly int ALIVE = 0;
-        public static readonly int BEHURT = 1;
-        public static readonly int FEY = 2;
-        public static readonly int DEATH = 3;
-        public static readonly int NOBEHURT = 4;
-        private int state = ALIVE;
+        public enum MainDir { LEFT_DIR, RIGHT_DIR };
+        //public static readonly int LEFT_DIR = 0;
+        //public static readonly int RIGHT_DIR = 1;
+        //public static readonly int ALIVE = 0;
+        //public static readonly int BEHURT = 1;
+        //public static readonly int FEY = 2;
+        //public static readonly int DEATH = 3;
+        //public static readonly int NOBEHURT = 4;
+        private MainState state = MainState.ALIVE;
 
         private float width;
         private float height;
@@ -34,7 +33,7 @@ namespace Megaman.src.GameObject
 
         private int damage;
 
-        private int direction;
+        private MainDir direction;
 
         protected Animation behurtForwardAnim, behurtBackAnim;
 
@@ -53,7 +52,7 @@ namespace Megaman.src.GameObject
             setMass(mass);
             setBlood(blood);
 
-            direction = RIGHT_DIR;
+            direction = MainDir.RIGHT_DIR;
 
         }
 
@@ -67,12 +66,12 @@ namespace Megaman.src.GameObject
             return timeForNoBeHurt;
         }
 
-        public void setState(int state)
+        public void setState(MainState state)
         {
             this.state = state;
         }
 
-        public int getState()
+        public MainState getState()
         {
             return state;
         }
@@ -160,12 +159,12 @@ namespace Megaman.src.GameObject
             return height;
         }
 
-        public void setDirection(int dir)
+        public void setDirection(MainDir dir)
         {
             direction = dir;
         }
 
-        public int getDirection()
+        public MainDir getDirection()
         {
             return direction;
         }
@@ -196,16 +195,16 @@ namespace Megaman.src.GameObject
         public void beHurt(int damgeEat)
         {
             setBlood(getBlood() - damgeEat);
-            state = BEHURT;
+            state = MainState.BEHURT;
             hurtingCallback();
         }
 
         //@Override
-        public override void Update()
+        public override void Update(GameTime gameTime)
         {
             switch (state)
             {
-                case ALIVE:
+                case MainState.ALIVE:
 
                     // note: SET DAMAGE FOR OBJECT NO DAMAGE
                     ParticularObject obj = getGameWorld().particularObjectManager.getCollisionWidthEnemyObject(this);
@@ -229,13 +228,13 @@ namespace Megaman.src.GameObject
 
                     break;
 
-                case BEHURT:
+                case MainState.BEHURT:
                     if (behurtBackAnim == null)
                     {
-                        state = NOBEHURT;
+                        state = MainState.NOBEHURT;
                         startTimeNoBeHurt = System.nanoTime();
                         if (getBlood() == 0)
-                            state = FEY;
+                            state = MainState.FEY;
 
                     }
                     else
@@ -244,30 +243,30 @@ namespace Megaman.src.GameObject
                         if (behurtForwardAnim.isLastFrame())
                         {
                             behurtForwardAnim.reset();
-                            state = NOBEHURT;
+                            state = MainState.NOBEHURT;
                             if (getBlood() == 0)
-                                state = FEY;
+                                state = MainState.FEY;
                             startTimeNoBeHurt = System.nanoTime();
                         }
                     }
 
                     break;
 
-                case FEY:
+                case MainState.FEY:
 
-                    state = DEATH;
-
-                    break;
-
-                case DEATH:
-
+                    state = MainState.DEATH;
 
                     break;
 
-                case NOBEHURT:
+                case MainState.DEATH:
+
+
+                    break;
+
+                case MainState.NOBEHURT:
                     MessageBox.Show("state = nobehurt");
                     if (System.nanoTime() - startTimeNoBeHurt > timeForNoBeHurt)
-                        state = ALIVE;
+                        state = MainState.ALIVE;
                     break;
             }
 
@@ -276,15 +275,15 @@ namespace Megaman.src.GameObject
         public void drawBoundForCollisionWithMap(Graphics g2)
         {
             Rectangle rect = getBoundForCollisionWithMap();
-            g2.setColor(Color.Blue);
+            //g2.setColor(Color.Blue);
             g2.DrawRectangle(rect.X - (int)getGameWorld().camera.getPosX(), rect.y - (int)getGameWorld().camera.getPosY(), rect.Width, rect.Height);
         }
 
         public void drawBoundForCollisionWithEnemy(Graphics g2)
         {
             Rectangle rect = getBoundForCollisionWithEnemy();
-            g2.setColor(Color.Red);
-            g2.DrawRectangle(rect.X - (int)getGameWorld().camera.getPosX(), rect.y - (int)getGameWorld().camera.getPosY(), rect.Width, rect.Height);
+            //g2.setColor(Color.Red);
+            g2.DrawRectangle(new Pen(Color.Red), rect.X - (int)getGameWorld().camera.getPosX(), rect.Y - (int)getGameWorld().camera.getPosY(), rect.Width, rect.Height);
         }
 
         public abstract Rectangle getBoundForCollisionWithEnemy();

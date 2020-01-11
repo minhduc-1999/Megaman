@@ -10,7 +10,7 @@ using System.IO;
 
 namespace Megaman.src.UserInterface
 {
-    public class GameFrame : Form1
+    public class GameFrame : Form
     {
 
         public static readonly int SCREEN_WIDTH = 1000;
@@ -36,10 +36,10 @@ namespace Megaman.src.UserInterface
 
 
             gamePanel = new GamePanel();
+            gamePanel.Dock = DockStyle.Fill;
             //addKeyListener(gamePanel);
             this.Controls.Add(gamePanel);
             //add(gamePanel);
-
         }
         //public void startGame()
         //{
