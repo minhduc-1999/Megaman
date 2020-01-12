@@ -1,28 +1,32 @@
-﻿using System;
+﻿using Megaman.src.Effect;
+using Megaman.src.State;
+using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Megaman.src.GameObject
 {
-    public class FinalBoss extends Human
+    public class FinalBoss : Human
     {
 
     private Animation idleforward, idleback;
     private Animation shootingforward, shootingback;
     private Animation slideforward, slideback;
 
-    private long startTimeForAttacked;
+    private DateTime startTimeForAttacked;
 
-    private Hashtable<String, Long> timeAttack = new Hashtable<String, Long>();
+    private Dictionary<String, long> timeAttack = new Dictionary<string, long>();
     private String[] attackType = new String[4];
     private int attackIndex = 0;
-    private long lastAttackTime;
+    private DateTime lastAttackTime;
 
-    public FinalBoss(float x, float y, GameWorldState gameWorld)
+    public FinalBoss(float x, float y, GameWorldState gameWorld) : base(x, y, 110, 150, 0.1f, 100, gameWorld)
     {
-        super(x, y, 110, 150, 0.1f, 100, gameWorld);
+       
         idleback = CacheDataLoader.getInstance().getAnimation("boss_idle");
         idleforward = CacheDataLoader.getInstance().getAnimation("boss_idle");
         idleforward.flipAllImage();
@@ -35,7 +39,7 @@ namespace Megaman.src.GameObject
         slideforward = CacheDataLoader.getInstance().getAnimation("boss_slide");
         slideforward.flipAllImage();
 
-        setTimeForNoBehurt(500 * 1000000);
+        setTimeForNoBehurt(500);
         setDamage(10);
 
         attackType[0] = "NONE";
@@ -43,41 +47,41 @@ namespace Megaman.src.GameObject
         attackType[2] = "NONE";
         attackType[3] = "slide";
 
-        timeAttack.put("NONE", new Long(2000));
-        timeAttack.put("shooting", new Long(500));
-        timeAttack.put("slide", new Long(5000));
+        timeAttack.Add("NONE", 2000);
+        timeAttack.Add("shooting", 500);
+        timeAttack.Add("slide", 5000);
 
     }
 
-    public void Update()
+    public override void Update(GameTime gameTime)
     {
-        super.Update();
+        base.Update(gameTime);
 
         if (getGameWorld().megaMan.getPosX() > getPosX())
-            setDirection(RIGHT_DIR);
-        else setDirection(LEFT_DIR);
+            setDirection(MainDir.RIGHT_DIR);
+        else setDirection(MainDir.LEFT_DIR);
 
-        if (startTimeForAttacked == 0)
-            startTimeForAttacked = System.currentTimeMillis();
-        else if (System.currentTimeMillis() - startTimeForAttacked > 300)
+        if (gameTime.GetTimeSpanMilis( startTimeForAttacked) == 0)
+            startTimeForAttacked = DateTime.Now;
+        else if (gameTime.GetTimeSpanMilis(startTimeForAttacked) > 300)
         {
-            attack();
-            startTimeForAttacked = System.currentTimeMillis();
+            attack(gameTime);
+            startTimeForAttacked =DateTime.Now;
         }
 
-        if (!attackType[attackIndex].equals("NONE"))
+        if (!attackType[attackIndex].Equals("NONE"))
         {
-            if (attackType[attackIndex].equals("shooting"))
+            if (attackType[attackIndex].Equals("shooting"))
             {
 
                 Bullet bullet = new RocketBullet(getPosX(), getPosY() - 50, getGameWorld());
-                if (getDirection() == LEFT_DIR) bullet.setSpeedX(-4);
+                if (getDirection() == MainDir.LEFT_DIR) bullet.setSpeedX(-4);
                 else bullet.setSpeedX(4);
                 bullet.setTeamType(getTeamType());
                 getGameWorld().bulletManager.addObject(bullet);
 
             }
-            else if (attackType[attackIndex].equals("slide"))
+            else if (attackType[attackIndex].Equals("slide"))
             {
 
                 if (getGameWorld().physicalMap.haveCollisionWithLeftWall(getBoundForCollisionWithMap()) != null)
@@ -97,53 +101,53 @@ namespace Megaman.src.GameObject
 
     }
 
-    @Override
-    public void run()
+    //@Override
+    public override void run()
     {
 
     }
 
-    @Override
-    public void jump()
+    //@Override
+    public override void jump()
     {
         setSpeedY(-5);
     }
 
-    @Override
-    public void dick()
+    //@Override
+    public override void dick()
     {
 
 
     }
 
-    @Override
-    public void standUp()
+    //@Override
+    public override void standUp()
     {
 
 
     }
 
-    @Override
-    public void stopRun()
+   // @Override
+    public override void stopRun()
     {
 
 
     }
 
-    @Override
-    public void attack()
+    //@Override
+    public override void attack(GameTime gameTime)
     {
 
         // only switch state attack
 
-        if (System.currentTimeMillis() - lastAttackTime > timeAttack.get(attackType[attackIndex]))
+        if (gameTime.GetTimeSpanMilis( lastAttackTime) > timeAttack[attackType[attackIndex]])
         {
-            lastAttackTime = System.currentTimeMillis();
+            lastAttackTime = DateTime.Now;
 
             attackIndex++;
-            if (attackIndex >= attackType.length) attackIndex = 0;
+            if (attackIndex >= attackType.Length) attackIndex = 0;
 
-            if (attackType[attackIndex].equals("slide"))
+            if (attackType[attackIndex].Equals("slide"))
             {
                 if (getPosX() < getGameWorld().megaMan.getPosX()) setSpeedX(5);
                 else setSpeedX(-5);
@@ -153,70 +157,70 @@ namespace Megaman.src.GameObject
 
     }
 
-    @Override
-    public Rectangle getBoundForCollisionWithEnemy()
+    //@Override
+    public override Rectangle getBoundForCollisionWithEnemy()
     {
-        if (attackType[attackIndex].equals("slide"))
+        if (attackType[attackIndex].Equals("slide"))
         {
             Rectangle rect = getBoundForCollisionWithMap();
-            rect.y += 100;
-            rect.height -= 100;
+            rect.Y += 100;
+            rect.Height -= 100;
             return rect;
         }
         else
             return getBoundForCollisionWithMap();
     }
 
-    @Override
-    public void draw(Graphics2D g2)
+    //@Override
+    public override void draw(Graphics g2, GameTime gameTime)
     {
 
-        if (getState() == NOBEHURT && (System.nanoTime() / 10000000) % 2 != 1)
+        if (getState() == MainState.NOBEHURT && (gameTime.GetTimeSpanMilis(DateTime.Now)) % 2 != 1)
         {
-            System.out.println("Plash...");
+            MessageBox.Show("Plash...");
         }
         else
         {
 
-            if (attackType[attackIndex].equals("NONE"))
+            if (attackType[attackIndex].Equals("NONE"))
             {
-                if (getDirection() == RIGHT_DIR)
+                if (getDirection() == MainDir.RIGHT_DIR)
                 {
-                    idleforward.Update(System.nanoTime());
-                    idleforward.draw((int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY(), g2);
+                    idleforward.Update(gameTime);
+                    idleforward.draw(g2, (int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY());
                 }
                 else
                 {
-                    idleback.Update(System.nanoTime());
-                    idleback.draw((int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY(), g2);
+                    idleback.Update(gameTime);
+                    idleback.draw(g2,(int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY());
                 }
             }
-            else if (attackType[attackIndex].equals("shooting"))
+            else if (attackType[attackIndex].Equals("shooting"))
             {
 
-                if (getDirection() == RIGHT_DIR)
+                if (getDirection() == MainDir.RIGHT_DIR)
                 {
-                    shootingforward.Update(System.nanoTime());
-                    shootingforward.draw((int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY(), g2);
+                    shootingforward.Update(gameTime);
+                    shootingforward.draw(g2,(int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY());
                 }
                 else
                 {
-                    shootingback.Update(System.nanoTime());
-                    shootingback.draw((int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY(), g2);
+                    shootingback.Update(gameTime);
+                    shootingback.draw(g2,(int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY());
                 }
 
             }
-            else if (attackType[attackIndex].equals("slide"))
+            else if (attackType[attackIndex].Equals("slide"))
             {
                 if (getSpeedX() > 0)
                 {
-                    slideforward.Update(System.nanoTime());
-                    slideforward.draw((int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY() + 50, g2);
+                    slideforward.Update(gameTime);
+                    slideforward.draw(g2,(int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY() + 50);
                 }
                 else
                 {
-                    slideback.Update(System.nanoTime());
-                    slideback.draw((int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY() + 50, g2);
+                    slideback.Update(gameTime);
+                    slideback.draw(g2, (int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY() + 50);
                 }
             }
         }

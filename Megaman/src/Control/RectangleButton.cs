@@ -25,28 +25,41 @@ namespace Megaman.src.Control
 	//@Override
 	public override void draw(Graphics g)
 	{
+			SolidBrush brush = new SolidBrush(Color.White);
 		if (enabled)
 		{
 			switch (state)
 			{
-				case NONE: g.setColor(bgColor); break;
-				case PRESSED: g.setColor(pressedBgColor); break;
-				case HOVER: g.setColor(hoverBgColor); break;
+				case PressType.NONE:
+						//g.setColor(bgColor); 
+						brush.Color = bgColor;
+						break;
+				case PressType.PRESSED:
+						//g.setColor(pressedBgColor); 
+						brush.Color = pressedBgColor;
+						break;
+				case PressType.HOVER:
+						//g.setColor(hoverBgColor);
+						brush.Color = hoverBgColor;
+						break;
 			}
 		}
 		else
 		{
-			g.setColor(Color.GRAY);
+				//g.setColor(Color.GRAY);
+				brush.Color = Color.Gray;
 		}
-		g.fillRect(posX, posY, width, height);
+		g.FillRectangle(brush,posX, posY, width, height);
 
-		g.setColor(Color.PINK);
-		g.drawRect(posX, posY, width, height);
-		g.drawRect(posX + 1, posY + 1, width - 2, height - 2);
+			//g.setColor(Color.PINK);
+			brush.Color = Color.Pink;
+		g.DrawRectangle(new Pen(Color.Pink) ,posX, posY, width, height);
+		g.FillRectangle(brush, posX + 1, posY + 1, width - 2, height - 2);
 
-		g.setColor(Color.WHITE);
-		g.setFont(new Font("TimesRoman", Font.PLAIN, 14));
-		g.drawString(text, posX + paddingTextX, posY + paddingTextY);
+			//g.setColor(Color.WHITE);
+			//g.setFont(new Font("TimesRoman", Font.PLAIN, 14));
+			brush.Color = Color.White;
+		g.DrawString(text, new Font("TimesRoman", 14), brush, posX + paddingTextX, posY + paddingTextY);
 	}
 }
 

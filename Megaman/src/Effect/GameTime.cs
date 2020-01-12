@@ -26,5 +26,9 @@ namespace Megaman
         {
             _tickMark = DateTime.Now;
         }
+        public double GetTimeSpanMilis(DateTime src)
+        {
+            return (DateTime.Now - src).TotalMilliseconds;
+        }
     }
 }

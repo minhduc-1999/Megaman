@@ -20,7 +20,7 @@ namespace Megaman.src.Effect
         private List<Boolean> ignoreFrames;
 
         private List<Double> delayFrames;
-        private long beginTime;
+        private double beginTime;
 
         private bool drawRectFrame;
 
@@ -152,7 +152,8 @@ namespace Megaman.src.Effect
             //        beginTime = deltaTime;
             //    }
             //}
-            beginTime += (int)gameTime.EslapsedTime.TotalMilliseconds;
+            
+            beginTime += gameTime.EslapsedTime.TotalMilliseconds;
             if (beginTime >= delayFrames[currentFrame])
             {
                 beginTime = 0;

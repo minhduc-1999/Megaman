@@ -11,16 +11,17 @@ namespace Megaman.src.State
 {
     public abstract class State
     {
-
+        protected GameTime gameTime;
         protected GamePanel gamePanel;
 
-        public State(GamePanel gamePanel)
+        public State(GamePanel gamePanel, GameTime time)
         {
             this.gamePanel = gamePanel;
+            this.gameTime = time;
         }
 
         public abstract void Update();
-        public abstract void Render();
+        public abstract void Render(Graphics g2);
         public abstract Image getBufferedImage();
 
         public abstract void setPressedButton(Keys code);

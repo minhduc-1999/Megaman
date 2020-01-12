@@ -11,9 +11,9 @@ namespace Megaman.src.GameObject
 {
     public abstract class ParticularObject : GameObject
     {
-
-        public static readonly int LEAGUE_TEAM = 1;
-        public static readonly int ENEMY_TEAM = 2;
+        public enum TeamType { LEAGUE_TEAM, ENEMY_TEAM};
+        //public static readonly int LEAGUE_TEAM = 1;
+        //public static readonly int ENEMY_TEAM = 2;
         public enum MainDir { LEFT_DIR, RIGHT_DIR };
         //public static readonly int LEFT_DIR = 0;
         //public static readonly int RIGHT_DIR = 1;
@@ -37,9 +37,9 @@ namespace Megaman.src.GameObject
 
         protected Animation behurtForwardAnim, behurtBackAnim;
 
-        private int teamType;
+        private TeamType teamType;
 
-        private long startTimeNoBeHurt;
+        private DateTime startTimeNoBeHurt;
         private long timeForNoBeHurt;
 
         public ParticularObject(float x, float y, float width, float height, float mass, int blood, GameWorldState gameWorld) : base(x, y, gameWorld)
@@ -87,12 +87,12 @@ namespace Megaman.src.GameObject
         }
 
 
-        public void setTeamType(int team)
+        public void setTeamType(TeamType team)
         {
             teamType = team;
         }
 
-        public int getTeamType()
+        public TeamType getTeamType()
         {
             return teamType;
         }
@@ -169,7 +169,7 @@ namespace Megaman.src.GameObject
             return direction;
         }
 
-        public abstract void attack();
+        public abstract void attack(GameTime gameTime);
 
 
         public bool isObjectOutOfCameraView()
@@ -232,21 +232,21 @@ namespace Megaman.src.GameObject
                     if (behurtBackAnim == null)
                     {
                         state = MainState.NOBEHURT;
-                        startTimeNoBeHurt = System.nanoTime();
+                        startTimeNoBeHurt = DateTime.Now;
                         if (getBlood() == 0)
                             state = MainState.FEY;
 
                     }
                     else
                     {
-                        behurtForwardAnim.Update(System.nanoTime());
+                        behurtForwardAnim.Update(gameTime);
                         if (behurtForwardAnim.isLastFrame())
                         {
                             behurtForwardAnim.reset();
                             state = MainState.NOBEHURT;
                             if (getBlood() == 0)
                                 state = MainState.FEY;
-                            startTimeNoBeHurt = System.nanoTime();
+                            startTimeNoBeHurt = DateTime.Now;
                         }
                     }
 
@@ -265,7 +265,7 @@ namespace Megaman.src.GameObject
 
                 case MainState.NOBEHURT:
                     MessageBox.Show("state = nobehurt");
-                    if (System.nanoTime() - startTimeNoBeHurt > timeForNoBeHurt)
+                    if (gameTime.GetTimeSpanMilis(startTimeNoBeHurt )> timeForNoBeHurt)
                         state = MainState.ALIVE;
                     break;
             }
@@ -276,7 +276,7 @@ namespace Megaman.src.GameObject
         {
             Rectangle rect = getBoundForCollisionWithMap();
             //g2.setColor(Color.Blue);
-            g2.DrawRectangle(rect.X - (int)getGameWorld().camera.getPosX(), rect.y - (int)getGameWorld().camera.getPosY(), rect.Width, rect.Height);
+            g2.DrawRectangle(new Pen(Color.Blue),rect.X - (int)getGameWorld().camera.getPosX(), rect.Y - (int)getGameWorld().camera.getPosY(), rect.Width, rect.Height);
         }
 
         public void drawBoundForCollisionWithEnemy(Graphics g2)
@@ -288,7 +288,7 @@ namespace Megaman.src.GameObject
 
         public abstract Rectangle getBoundForCollisionWithEnemy();
 
-        public abstract void draw(Graphics g2);
+        public abstract void draw(Graphics g2, GameTime gameTime);
 
         public virtual void hurtingCallback() { }
 

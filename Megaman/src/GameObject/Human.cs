@@ -105,14 +105,14 @@ namespace Megaman.src.GameObject
 
                     Rectangle rectTop = getGameWorld().physicalMap.haveCollisionWithTop(boundForCollisionWithMapFuture);
 
-                    if (rectTop != null)
+                    if (rectTop != Rectangle.Empty)
                     {
 
                         setSpeedY(0);
                         setPosY(rectTop.Y + getGameWorld().physicalMap.getTileSize() + getHeight() / 2);
 
                     }
-                    else if (rectLand != null)
+                    else if (rectLand != Rectangle.Empty)
                     {
                         setIsJumping(false);
                         if (getSpeedY() > 0) setIsLanding(true);

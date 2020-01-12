@@ -18,7 +18,7 @@ namespace Megaman.src.GameObject
         public ParticularObjectManager(GameWorldState gameWorld)
         {
 
-            particularObjects = Collections.synchronizedList(new LinkedList<ParticularObject>());
+            particularObjects = new List<ParticularObject>();
             this.gameWorld = gameWorld;
 
         }
@@ -32,37 +32,37 @@ namespace Megaman.src.GameObject
         {
 
 
-            synchronized(particularObjects){
-                particularObjects.add(particularObject);
+            lock(particularObjects){
+                particularObjects.Add(particularObject);
             }
 
         }
 
         public void RemoveObject(ParticularObject particularObject)
         {
-            synchronized(particularObjects){
+            lock(particularObjects){
 
-                for (int id = 0; id < particularObjects.size(); id++)
+                for (int id = 0; id < particularObjects.Count; id++)
                 {
 
-                    ParticularObject object = particularObjects.get(id);
-                    if (object == particularObject)
-                        particularObjects.remove(id);
+                    ParticularObject obj = particularObjects[id];
+                    if (obj == particularObject)
+                        particularObjects.RemoveAt(id);
 
                 }
             }
         }
 
-        public ParticularObject getCollisionWidthEnemyObject(ParticularObject object)
+        public ParticularObject getCollisionWidthEnemyObject(ParticularObject obj)
         {
-            synchronized(particularObjects){
+            lock(particularObjects){
                 for (int id = 0; id < particularObjects.Count; id++)
                 {
 
-                    ParticularObject objectInList = particularObjects.get(id);
+                    ParticularObject objectInList = particularObjects[id];
 
-                    if (object.getTeamType() != objectInList.getTeamType() &&
-                            object.getBoundForCollisionWithEnemy().intersects(objectInList.getBoundForCollisionWithEnemy()))
+                    if (obj.getTeamType() != objectInList.getTeamType() &&
+                            obj.getBoundForCollisionWithEnemy().IntersectsWith(objectInList.getBoundForCollisionWithEnemy()))
                     {
                         return objectInList;
                     }
@@ -71,20 +71,20 @@ namespace Megaman.src.GameObject
             return null;
         }
 
-        public virtual void UpdateObjects()
+        public virtual void UpdateObjects(GameTime gameTime)
         {
-            synchronized(particularObjects){
-                for (int id = 0; id < particularObjects.size(); id++)
+            lock(particularObjects){
+                for (int id = 0; id < particularObjects.Count; id++)
                 {
 
-                    ParticularObject object = particularObjects.get(id);
+                    ParticularObject obj = particularObjects[id];
 
 
-                    if (!object.isObjectOutOfCameraView()) object.Update();
+                    if (!obj.isObjectOutOfCameraView()) obj.Update(gameTime);
 
-                    if (object.getState() == ParticularObject.DEATH)
+                    if (obj.getState() == GameObject.MainState.DEATH)
                     {
-                        particularObjects.remove(id);
+                        particularObjects.RemoveAt(id);
                     }
                 }
             }
@@ -93,11 +93,11 @@ namespace Megaman.src.GameObject
 
         }
 
-        public void draw(Graphics g2)
+        public void draw(Graphics g2,GameTime gameTime)
         {
-            synchronized(particularObjects){
-                for (ParticularObject object: particularObjects)
-                    if (!object.isObjectOutOfCameraView()) object.draw(g2);
+            lock(particularObjects){
+                foreach (ParticularObject obj in particularObjects)
+                    if (!obj.isObjectOutOfCameraView()) obj.draw(g2,gameTime);
             }
         }
 

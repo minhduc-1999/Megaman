@@ -22,7 +22,7 @@ namespace Megaman.src.GameObject
 
         private Animation climWallForward, climWallBack;
 
-        private long lastShootingTime;
+        private DateTime lastShootingTime;
         private bool isShooting = false;
 
         //private AudioClip hurtingSound;
@@ -33,9 +33,9 @@ namespace Megaman.src.GameObject
             //shooting1 = CacheDataLoader.getInstance().getSound("bluefireshooting");
             //hurtingSound = CacheDataLoader.getInstance().getSound("megamanhurt");
 
-            setTeamType(LEAGUE_TEAM);
+            setTeamType(TeamType.LEAGUE_TEAM);
 
-            setTimeForNoBehurt(2000 * 1000000);
+            setTimeForNoBehurt(2000);
 
             runForwardAnim = CacheDataLoader.getInstance().getAnimation("run");
             runBackAnim = CacheDataLoader.getInstance().getAnimation("run");
@@ -84,10 +84,10 @@ namespace Megaman.src.GameObject
         //@Override
         public override void Update(GameTime gameTime)
         {
-            base.Update();
+            base.Update(gameTime);
             if (isShooting)
             {
-                if (DateTime.Now - lastShootingTime > 500 * 1000000)
+                if (gameTime.GetTimeSpanMilis(lastShootingTime) > 500) //mdtime
                 {
                     isShooting = false;
                 }
@@ -95,7 +95,7 @@ namespace Megaman.src.GameObject
 
             if (getIsLanding())
             {
-                landingBackAnim.Update(DateTime.Now);
+                landingBackAnim.Update(gameTime);
                 if (landingBackAnim.isLastFrame())
                 {
                     setIsLanding(false);
@@ -132,7 +132,7 @@ namespace Megaman.src.GameObject
         }
 
         //@Override
-        public override void draw(Graphics g2)
+        public override void draw(Graphics g2, GameTime gameTime)
         {
 
             switch (getState())
@@ -140,7 +140,7 @@ namespace Megaman.src.GameObject
 
                 case MainState.ALIVE:
                 case MainState.NOBEHURT:
-                    if (getState() == MainState.NOBEHURT && (DateTime.Now / 10000000) % 2 != 1)
+                    if (getState() == MainState.NOBEHURT && (gameTime.GetTimeSpanMilis(DateTime.Now)) % 2 != 1)
                     {
                         MessageBox.Show("Plash...");
                     }
@@ -153,15 +153,14 @@ namespace Megaman.src.GameObject
                             if (getDirection() == MainDir.RIGHT_DIR)
                             {
                                 landingForwardAnim.setCurrentFrame(landingBackAnim.getCurrentFrame());
-                                landingForwardAnim.draw((int)(getPosX() - getGameWorld().camera.getPosX()),
-                                        (int)getPosY() - (int)getGameWorld().camera.getPosY() + (getBoundForCollisionWithMap().height / 2 - landingForwardAnim.getCurrentImage().getHeight() / 2),
-                                        g2);
+                                landingForwardAnim.draw(g2, (int)(getPosX() - getGameWorld().camera.getPosX()),
+                                        (int)getPosY() - (int)getGameWorld().camera.getPosY() + (getBoundForCollisionWithMap().Height / 2 - landingForwardAnim.getCurrentImage().Height / 2));
                             }
                             else
                             {
-                                landingBackAnim.draw((int)(getPosX() - getGameWorld().camera.getPosX()),
-                                        (int)getPosY() - (int)getGameWorld().camera.getPosY() + (getBoundForCollisionWithMap().height / 2 - landingBackAnim.getCurrentImage().getHeight() / 2),
-                                        g2);
+                                landingBackAnim.draw(g2, (int)(getPosX() - getGameWorld().camera.getPosX()),
+                                        (int)getPosY() - (int)getGameWorld().camera.getPosY() + (getBoundForCollisionWithMap().Height / 2 - landingBackAnim.getCurrentImage().Height / 2)
+                                        );
                             }
 
                         }
@@ -170,25 +169,25 @@ namespace Megaman.src.GameObject
 
                             if (getDirection() == MainDir.RIGHT_DIR)
                             {
-                                flyForwardAnim.Update(DateTime.Now);
+                                flyForwardAnim.Update(gameTime);
                                 if (isShooting)
                                 {
                                     flyShootingForwardAnim.setCurrentFrame(flyForwardAnim.getCurrentFrame());
-                                    flyShootingForwardAnim.draw((int)(getPosX() - getGameWorld().camera.getPosX()) + 10, (int)getPosY() - (int)getGameWorld().camera.getPosY(), g2);
+                                    flyShootingForwardAnim.draw(g2, (int)(getPosX() - getGameWorld().camera.getPosX()) + 10, (int)getPosY() - (int)getGameWorld().camera.getPosY());
                                 }
                                 else
-                                    flyForwardAnim.draw((int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY(), g2);
+                                    flyForwardAnim.draw(g2, (int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY());
                             }
                             else
                             {
-                                flyBackAnim.Update(DateTime.Now);
+                                flyBackAnim.Update(gameTime);
                                 if (isShooting)
                                 {
                                     flyShootingBackAnim.setCurrentFrame(flyBackAnim.getCurrentFrame());
-                                    flyShootingBackAnim.draw((int)(getPosX() - getGameWorld().camera.getPosX()) - 10, (int)getPosY() - (int)getGameWorld().camera.getPosY(), g2);
+                                    flyShootingBackAnim.draw(g2, (int)(getPosX() - getGameWorld().camera.getPosX()) - 10, (int)getPosY() - (int)getGameWorld().camera.getPosY());
                                 }
                                 else
-                                    flyBackAnim.draw((int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY(), g2);
+                                    flyBackAnim.draw(g2, (int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY());
                             }
 
                         }
@@ -197,17 +196,17 @@ namespace Megaman.src.GameObject
 
                             if (getDirection() == MainDir.RIGHT_DIR)
                             {
-                                dickForwardAnim.Update(DateTime.Now);
-                                dickForwardAnim.draw((int)(getPosX() - getGameWorld().camera.getPosX()),
-                                        (int)getPosY() - (int)getGameWorld().camera.getPosY() + (getBoundForCollisionWithMap().height / 2 - dickForwardAnim.getCurrentImage().getHeight() / 2),
-                                        g2);
+                                dickForwardAnim.Update(gameTime);
+                                dickForwardAnim.draw(g2,(int)(getPosX() - getGameWorld().camera.getPosX()),
+                                        (int)getPosY() - (int)getGameWorld().camera.getPosY() + (getBoundForCollisionWithMap().Height / 2 - dickForwardAnim.getCurrentImage().Height / 2)
+                                        );
                             }
                             else
                             {
-                                dickBackAnim.Update(DateTime.Now);
-                                dickBackAnim.draw((int)(getPosX() - getGameWorld().camera.getPosX()),
-                                        (int)getPosY() - (int)getGameWorld().camera.getPosY() + (getBoundForCollisionWithMap().height / 2 - dickBackAnim.getCurrentImage().getHeight() / 2),
-                                        g2);
+                                dickBackAnim.Update(gameTime);
+                                dickBackAnim.draw(g2,(int)(getPosX() - getGameWorld().camera.getPosX()),
+                                        (int)getPosY() - (int)getGameWorld().camera.getPosY() + (getBoundForCollisionWithMap().Height / 2 - dickBackAnim.getCurrentImage().Height / 2)
+                                        );
                             }
 
                         }
@@ -215,26 +214,26 @@ namespace Megaman.src.GameObject
                         {
                             if (getSpeedX() > 0)
                             {
-                                runForwardAnim.Update(DateTime.Now);
+                                runForwardAnim.Update(gameTime);
                                 if (isShooting)
                                 {
                                     runShootingForwarAnim.setCurrentFrame(runForwardAnim.getCurrentFrame() - 1);
-                                    runShootingForwarAnim.draw((int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY(), g2);
+                                    runShootingForwarAnim.draw(g2,(int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY());
                                 }
                                 else
-                                    runForwardAnim.draw((int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY(), g2);
+                                    runForwardAnim.draw(g2,(int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY());
                                 if (runForwardAnim.getCurrentFrame() == 1) runForwardAnim.setIgnoreFrame(0);
                             }
                             else if (getSpeedX() < 0)
                             {
-                                runBackAnim.Update(DateTime.Now);
+                                runBackAnim.Update(gameTime);
                                 if (isShooting)
                                 {
                                     runShootingBackAnim.setCurrentFrame(runBackAnim.getCurrentFrame() - 1);
-                                    runShootingBackAnim.draw((int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY(), g2);
+                                    runShootingBackAnim.draw(g2,(int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY());
                                 }
                                 else
-                                    runBackAnim.draw((int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY(), g2);
+                                    runBackAnim.draw(g2,(int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY());
                                 if (runBackAnim.getCurrentFrame() == 1) runBackAnim.setIgnoreFrame(0);
                             }
                             else
@@ -243,26 +242,26 @@ namespace Megaman.src.GameObject
                                 {
                                     if (isShooting)
                                     {
-                                        idleShootingForwardAnim.Update(DateTime.Now);
-                                        idleShootingForwardAnim.draw((int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY(), g2);
+                                        idleShootingForwardAnim.Update(gameTime);
+                                        idleShootingForwardAnim.draw(g2,(int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY());
                                     }
                                     else
                                     {
-                                        idleForwardAnim.Update(DateTime.Now);
-                                        idleForwardAnim.draw((int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY(), g2);
+                                        idleForwardAnim.Update(gameTime);
+                                        idleForwardAnim.draw(g2,(int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY());
                                     }
                                 }
                                 else
                                 {
                                     if (isShooting)
                                     {
-                                        idleShootingBackAnim.Update(DateTime.Now);
-                                        idleShootingBackAnim.draw((int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY(), g2);
+                                        idleShootingBackAnim.Update(gameTime);
+                                        idleShootingBackAnim.draw(g2,(int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY());
                                     }
                                     else
                                     {
-                                        idleBackAnim.Update(DateTime.Now);
-                                        idleBackAnim.draw((int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY(), g2);
+                                        idleBackAnim.Update(gameTime);
+                                        idleBackAnim.draw(g2,(int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY());
                                     }
                                 }
                             }
@@ -274,12 +273,12 @@ namespace Megaman.src.GameObject
                 case MainState.BEHURT:
                     if (getDirection() == MainDir.RIGHT_DIR)
                     {
-                        behurtForwardAnim.draw((int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY(), g2);
+                        behurtForwardAnim.draw(g2, (int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY());
                     }
                     else
                     {
                         behurtBackAnim.setCurrentFrame(behurtForwardAnim.getCurrentFrame());
-                        behurtBackAnim.draw((int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY(), g2);
+                        behurtBackAnim.draw(g2, (int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY());
                     }
                     break;
 
@@ -320,7 +319,7 @@ namespace Megaman.src.GameObject
                 Rectangle rectLeftWall = getBoundForCollisionWithMap();
                 rectLeftWall.Y -= 1;
 
-                if (getGameWorld().physicalMap.haveCollisionWithRightWall(rectRightWall) != null && getSpeedX() > 0)
+                if (getGameWorld().physicalMap.haveCollisionWithRightWall(rectRightWall) != Rectangle.Empty && getSpeedX() > 0)
                 {
                     setSpeedY(-5.0f);
                     //setSpeedX(-1);
@@ -328,7 +327,7 @@ namespace Megaman.src.GameObject
                     flyForwardAnim.reset();
                     //setDirection(LEFT_DIR);
                 }
-                else if (getGameWorld().physicalMap.haveCollisionWithLeftWall(rectLeftWall) != null && getSpeedX() < 0)
+                else if (getGameWorld().physicalMap.haveCollisionWithLeftWall(rectLeftWall) != Rectangle.Empty && getSpeedX() < 0)
                 {
                     setSpeedY(-5.0f);
                     //setSpeedX(1);
@@ -368,13 +367,13 @@ namespace Megaman.src.GameObject
         }
 
         //@Override
-        public override void attack()
+        public override void attack(GameTime gameTime)
         {
 
             if (!isShooting && !getIsDicking())
             {
 
-               // shooting1.play();
+                // shooting1.play();
 
                 Bullet bullet = new BlueFire(getPosX(), getPosY(), getGameWorld());
                 if (getDirection() == MainDir.LEFT_DIR)

@@ -1,4 +1,5 @@
-﻿using Megaman.src.UserInterface;
+﻿using Megaman.src.Control;
+using Megaman.src.UserInterface;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -6,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Button = Megaman.src.Control.Button;
 
 namespace Megaman.src.State
 {
@@ -17,15 +19,15 @@ namespace Megaman.src.State
         private Image bufferedImage;
         Graphics graphicsPaint;
 
-        private Button[] buttons;
+        private Megaman.src.Control.Button[] buttons;
         private int buttonSelected = 0;
         private bool canContinueGame = false;
 
-        public MenuState(GamePanel gamePanel) : base(gamePanel)
+        public MenuState(GamePanel gamePanel,GameTime time) : base(gamePanel,time)
         {
-            bufferedImage = new Image(GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT, BufferedImage.TYPE_INT_ARGB);
-
+            //bufferedImage = new Image(GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT, BufferedImage.TYPE_INT_ARGB);
             buttons = new Button[NUMBER_OF_BUTTON];
+            //buttons = new Megaman.src.Control.Button[NUMBER_OF_BUTTON]();
             buttons[0] = new RectangleButton("NEW GAME", 300, 100, 100, 40, 15, 25, Color.Orange);
             buttons[0].setHoverBgColor(Color.Blue);
             buttons[0].setPressedBgColor(Color.Green);
@@ -47,34 +49,36 @@ namespace Megaman.src.State
             {
                 if (i == buttonSelected)
                 {
-                    buttons[i].setState(Button.HOVER);
+                    buttons[i].setState(Control.Button.PressType.HOVER);
                 }
                 else
                 {
-                    buttons[i].setState(Button.NONE);
+                    buttons[i].setState(Control.Button.PressType.NONE);
                 }
             }
         }
 
         // @Override
-        public override void Render()
+        public override void Render(Graphics g2)
         {
-            if (bufferedImage == null)
-            {
-                bufferedImage = new Image(GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT, BufferedImage.TYPE_INT_ARGB);
-                return;
-            }
-            graphicsPaint = bufferedImage.getGraphics();
-            if (graphicsPaint == null)
-            {
-                graphicsPaint = bufferedImage.getGraphics();
-                return;
-            }
-            graphicsPaint.setColor(Color.Cyan);
-            graphicsPaint.fillRect(0, 0, bufferedImage.getWidth(), bufferedImage.getHeight());
+            SolidBrush brush = new SolidBrush(Color.White);
+            //if (bufferedImage == null)
+            //{
+            //    bufferedImage = new Image(GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT, BufferedImage.TYPE_INT_ARGB);
+            //    return;
+            //}
+            //graphicsPaint = bufferedImage.getGraphics();
+            //if (graphicsPaint == null)
+            //{
+            //    graphicsPaint = bufferedImage.getGraphics();
+            //    return;
+            //}
+            //graphicsPaint.setColor(Color.Cyan);
+            brush.Color = Color.Cyan;
+            //g2.FillRectangle(brush,0, 0, bufferedImage.Width, bufferedImage.Height);
             foreach (Button bt in buttons)
             {
-                bt.draw(graphicsPaint);
+                bt.draw(g2);
             }
         }
 
@@ -117,7 +121,7 @@ namespace Megaman.src.State
             switch (buttonSelected)
             {
                 case 0:
-                    gamePanel.setState(new GameWorldState(gamePanel));
+                    gamePanel.setState(new GameWorldState(gamePanel, gameTime));
                     break;
 
                 case 1:

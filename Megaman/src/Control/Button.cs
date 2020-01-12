@@ -9,10 +9,10 @@ namespace Megaman.src.Control
 {
 	public abstract class Button
 	{
-
-		public static readonly int NONE = 0;
-		public static readonly int PRESSED = 1;
-		public static readonly int HOVER = 2;
+		public enum PressType { NONE, PRESSED, HOVER}
+		//public static readonly int NONE = 0;
+		//public static readonly int PRESSED = 1;
+		//public static readonly int HOVER = 2;
 
 		protected String text;
 		protected int posX;
@@ -23,7 +23,7 @@ namespace Megaman.src.Control
 		protected int paddingTextY;
 		protected bool enabled;
 
-		protected int state;
+		protected PressType state;
 		protected Color bgColor;
 		protected Color pressedBgColor;
 		protected Color hoverBgColor;
@@ -47,7 +47,7 @@ namespace Megaman.src.Control
 			this.enabled = enabled;
 		}
 
-		public void setState(int state)
+		public void setState(PressType state)
 		{
 			this.state = state;
 		}

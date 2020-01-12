@@ -43,7 +43,7 @@ namespace Megaman.src.GameObject
 
             if (posX1 < 0) posX1 = 0;
 
-            if (posX2 >= phys_map.GetLength(1)) posX2 = phys_map.GetLength(1);
+            if (posX2 >= phys_map.GetLength(1)) posX2 = phys_map.GetLength(1) - 1;
 
             for (int y = posY; y >= 0; y--)
             {
@@ -58,7 +58,7 @@ namespace Megaman.src.GameObject
                     }
                 }
             }
-            return null;
+            return Rectangle.Empty;
 
         }
 
@@ -75,8 +75,9 @@ namespace Megaman.src.GameObject
 
             if (posX1 < 0) posX1 = 0;
 
-            if (posX2 >= phys_map.GetLength(1)) posX2 = phys_map.GetLength(1) - 1;
-            for (int y = posY; y < phys_map.Length; y++)
+            if (posX2 >= phys_map.GetLength(1)) 
+                posX2 = phys_map.GetLength(1) - 1;
+            for (int y = posY; y < phys_map.GetLength(0); y++)
             {
                 for (int x = posX1; x <= posX2; x++)
                 {
@@ -89,7 +90,7 @@ namespace Megaman.src.GameObject
                     }
                 }
             }
-            return null;
+            return Rectangle.Empty;
         }
 
         public Rectangle haveCollisionWithRightWall(Rectangle rect)
@@ -106,7 +107,7 @@ namespace Megaman.src.GameObject
             if (posX2 >= phys_map.GetLength(1)) posX2 = phys_map.GetLength(1) - 1;
 
             if (posY1 < 0) posY1 = 0;
-            if (posY2 >= phys_map.Length) posY2 = phys_map.Length - 1;
+            if (posY2 >= phys_map.GetLength(0)) posY2 = phys_map.GetLength(0) - 1;
 
 
             for (int x = posX1; x <= posX2; x++)
@@ -121,7 +122,7 @@ namespace Megaman.src.GameObject
                     }
                 }
             }
-            return null;
+            return Rectangle.Empty;
 
         }
 
@@ -140,7 +141,7 @@ namespace Megaman.src.GameObject
             if (posX2 < 0) posX2 = 0;
 
             if (posY1 < 0) posY1 = 0;
-            if (posY2 >= phys_map.Length) posY2 = phys_map.Length - 1;
+            if (posY2 >= phys_map.GetLength(0)) posY2 = phys_map.GetLength(0) - 1;
 
 
             for (int x = posX1; x >= posX2; x--)
@@ -155,7 +156,7 @@ namespace Megaman.src.GameObject
                     }
                 }
             }
-            return null;
+            return Rectangle.Empty;
 
         }
 
@@ -165,7 +166,7 @@ namespace Megaman.src.GameObject
             Camera camera = getGameWorld().camera;
             SolidBrush brush = new SolidBrush(Color.Gray);
             //g2.setColor(Color.GRAY);
-            for (int i = 0; i < phys_map.Length; i++)
+            for (int i = 0; i < phys_map.GetLength(0); i++)
                 for (int j = 0; j < phys_map.GetLength(1); j++)
                     if (phys_map[i,j] != 0) g2.FillRectangle(brush,(int)getPosX() + j * tileSize - (int)camera.getPosX(),
                                (int)getPosY() + i * tileSize - (int)camera.getPosY(), tileSize, tileSize);

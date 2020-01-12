@@ -1,24 +1,27 @@
-﻿using System;
+﻿using Megaman.src.Effect;
+using Megaman.src.State;
+using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Megaman.src.GameObject
 {
-    public class RocketBullet extends Bullet
+    public class RocketBullet : Bullet
     {
 
 
     private Animation forwardBulletAnimUp, forwardBulletAnimDown, forwardBulletAnim;
     private Animation backBulletAnimUp, backBulletAnimDown, backBulletAnim;
 
-    private long startTimeForChangeSpeedY;
+    private DateTime startTimeForChangeSpeedY;
 
-    public RocketBullet(float x, float y, GameWorldState gameWorld)
+    public RocketBullet(float x, float y, GameWorldState gameWorld):base(x, y, 30, 30, 1.0f, 10, gameWorld)
     {
 
-        super(x, y, 30, 30, 1.0f, 10, gameWorld);
+        
 
         backBulletAnimUp = CacheDataLoader.getInstance().getAnimation("rocketUp");
         backBulletAnimDown = CacheDataLoader.getInstance().getAnimation("rocketDown");
@@ -33,53 +36,53 @@ namespace Megaman.src.GameObject
 
     }
 
-    @Override
-    public Rectangle getBoundForCollisionWithEnemy()
+    //@Override
+    public override Rectangle getBoundForCollisionWithEnemy()
     {
         // TODO Auto-generated method stub
         return getBoundForCollisionWithMap();
     }
 
-    @Override
-    public void draw(Graphics2D g2)
+    //@Override
+    public override void draw(Graphics g2, GameTime gameTime)
     {
         // TODO Auto-generated method stub
         if (getSpeedX() > 0)
         {
             if (getSpeedY() > 0)
             {
-                forwardBulletAnimDown.draw((int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY(), g2);
+                forwardBulletAnimDown.draw(g2, (int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY());
             }
             else if (getSpeedY() < 0)
             {
-                forwardBulletAnimUp.draw((int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY(), g2);
+                forwardBulletAnimUp.draw(g2, (int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY());
             }
             else
-                forwardBulletAnim.draw((int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY(), g2);
+                forwardBulletAnim.draw(g2, (int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY());
         }
         else
         {
             if (getSpeedY() > 0)
             {
-                backBulletAnimDown.draw((int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY(), g2);
+                backBulletAnimDown.draw(g2,(int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY());
             }
             else if (getSpeedY() < 0)
             {
-                backBulletAnimUp.draw((int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY(), g2);
+                backBulletAnimUp.draw(g2,(int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY());
             }
             else
-                backBulletAnim.draw((int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY(), g2);
+                backBulletAnim.draw(g2,(int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY());
         }
         //drawBoundForCollisionWithEnemy(g2);
     }
 
-    private void changeSpeedY()
+    private void changeSpeedY(GameTime gameTime)
     {
-        if (System.currentTimeMillis() % 3 == 0)
+        if (gameTime.GetTimeSpanMilis(DateTime.Now) % 3 == 0)
         {
             setSpeedY(getSpeedX());
         }
-        else if (System.currentTimeMillis() % 3 == 1)
+        else if (gameTime.GetTimeSpanMilis(DateTime.Now) == 1)
         {
             setSpeedY(-getSpeedX());
         }
@@ -90,21 +93,21 @@ namespace Megaman.src.GameObject
         }
     }
 
-    @Override
-    public void Update()
+    //@Override
+    public override void Update(GameTime gameTime)
     {
         // TODO Auto-generated method stub
-        super.Update();
+        base.Update(gameTime);
 
-        if (System.nanoTime() - startTimeForChangeSpeedY > 500 * 1000000)
+        if (gameTime.GetTimeSpanMilis( startTimeForChangeSpeedY) > 500)
         {
-            startTimeForChangeSpeedY = System.nanoTime();
-            changeSpeedY();
+            startTimeForChangeSpeedY = DateTime.Now;
+            changeSpeedY(gameTime);
         }
     }
 
-    @Override
-    public void attack() { }
+    //@Override
+    public override void attack(GameTime gameTime) { }
 
 }
 

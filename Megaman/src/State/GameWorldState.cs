@@ -61,7 +61,7 @@ namespace Megaman.src.State
 
         //public AudioClip bgMusic;
 
-        public GameWorldState(GamePanel gamePanel) : base(gamePanel)
+        public GameWorldState(GamePanel gamePanel, GameTime time) : base(gamePanel, time)
         {
             texts1[0] = "We are heros, and our mission is protecting our Home\nEarth....";
             texts1[1] = "There was a Monster from University on Earth in 10 years\n"
@@ -191,7 +191,7 @@ namespace Megaman.src.State
                         {
                             megaMan.setDirection(ParticularObject.MainDir.RIGHT_DIR);
                             megaMan.run();
-                            megaMan.Update();
+                            megaMan.Update(gameTime);
                         }
                         else
                         {
@@ -203,15 +203,15 @@ namespace Megaman.src.State
                             camera.Lock();
                             storyTutorial++;
                             megaMan.stopRun();
-                            physicalMap.phys_map[14][120] = 1;
-                            physicalMap.phys_map[15][120] = 1;
-                            physicalMap.phys_map[16][120] = 1;
-                            physicalMap.phys_map[17][120] = 1;
+                            physicalMap.phys_map[14,120] = 1;
+                            physicalMap.phys_map[15,120] = 1;
+                            physicalMap.phys_map[16,120] = 1;
+                            physicalMap.phys_map[17,120] = 1;
 
-                            backgroundMap.map[14][120] = 17;
-                            backgroundMap.map[15][120] = 17;
-                            backgroundMap.map[16][120] = 17;
-                            backgroundMap.map[17][120] = 17;
+                            backgroundMap.map[14,120] = 17;
+                            backgroundMap.map[15,120] = 17;
+                            backgroundMap.map[16,120] = 17;
+                            backgroundMap.map[17,120] = 17;
                         }
 
                     }
@@ -285,11 +285,11 @@ namespace Megaman.src.State
 
                     break;
                 case GameState.GAMEPLAY:
-                    particularObjectManager.UpdateObjects();
-                    bulletManager.UpdateObjects();
+                    particularObjectManager.UpdateObjects(gameTime);
+                    bulletManager.UpdateObjects(gameTime);
 
-                    physicalMap.Update();
-                    camera.Update();
+                    physicalMap.Update(gameTime);
+                    camera.Update(gameTime);
 
 
                     if (megaMan.getPosX() > readonlyBossX && readonlybossTrigger)
@@ -300,9 +300,9 @@ namespace Megaman.src.State
                         storyTutorial = 0;
                         openIntroGameY = 550;
 
-                        boss = new readonlyBoss(readonlyBossX + 700, 460, this);
-                        boss.setTeamType(ParticularObject.ENEMY_TEAM);
-                        boss.setDirection(ParticularObject.MainDir.L);
+                        boss = new FinalBoss(readonlyBossX + 700, 460, this);
+                        boss.setTeamType(ParticularObject.TeamType.ENEMY_TEAM);
+                        boss.setDirection(ParticularObject.MainDir.LEFT_DIR);
                         particularObjectManager.addObject(boss);
 
                     }
@@ -338,10 +338,10 @@ namespace Megaman.src.State
 
         }
 
-        public override void Render()
+        public override void Render(Graphics g2)
         {
 
-            Graphics g2 = Graphics.FromImage(bufferedImage);
+            //Graphics g2 = Graphics.FromImage(bufferedImage);
             SolidBrush brush = new SolidBrush(Color.White);
             Font font = new Font("Verdana", 14);
             if (g2 != null)
@@ -373,7 +373,7 @@ namespace Megaman.src.State
                         backgroundMap.draw(g2);
                         if (tutorialState == TutorialState.MEETreadonlyBOSS)
                         {
-                            particularObjectManager.draw(g2);
+                            particularObjectManager.draw(g2,gameTime);
                         }
                         TutorialRender(g2);
 
@@ -381,8 +381,8 @@ namespace Megaman.src.State
                     case GameState.GAMEWIN:
                     case GameState.GAMEPLAY:
                         backgroundMap.draw(g2);
-                        particularObjectManager.draw(g2);
-                        bulletManager.draw(g2);
+                        particularObjectManager.draw(g2,gameTime);
+                        bulletManager.draw(g2,gameTime);
 
                         brush.Color = Color.Gray;
                         g2.FillRectangle(brush, 19, 59, 102, 22);
@@ -475,7 +475,7 @@ namespace Megaman.src.State
                     break;
 
                 case Keys.A:
-                    megaMan.attack();
+                    megaMan.attack(gameTime);
                     break;
 
             }
@@ -508,7 +508,7 @@ namespace Megaman.src.State
                 case Keys.Enter:
                     if (state == GameState.GAMEOVER || state == GameState.GAMEWIN)
                     {
-                        gamePanel.setState(new MenuState(gamePanel));
+                        //gamePanel.setState(new MenuState(gamePanel, gameTime));
                     }
                     else if (state == GameState.PAUSEGAME)
                     {

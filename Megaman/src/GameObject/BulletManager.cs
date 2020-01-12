@@ -16,18 +16,18 @@ namespace Megaman.src.GameObject
     }
 
     //@Override
-    public override void UpdateObjects()
+    public override void UpdateObjects(GameTime gameTime)
     {
-        base.UpdateObjects();
-        synchronized(particularObjects){
+        base.UpdateObjects(gameTime);
+        lock(particularObjects){
             for (int id = 0; id < particularObjects.Count; id++)
             {
 
-                ParticularObject object = particularObjects.get(id);
+                ParticularObject obj = particularObjects[id];
 
-                if (object.isObjectOutOfCameraView() || object.getState() == ParticularObject.DEATH)
+                if (obj.isObjectOutOfCameraView() || obj.getState() == GameObject.MainState.DEATH)
                 {
-                    particularObjects.remove(id);
+                    particularObjects.RemoveAt(id);
                     //System.out.println("Remove");
                 }
             }

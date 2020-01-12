@@ -46,22 +46,35 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="src\Control\Button.cs" />
+    <Compile Include="src\Control\RectangleButton.cs" />
     <Compile Include="src\Effect\Animation.cs" />
     <Compile Include="src\Effect\CacheDataLoader.cs" />
     <Compile Include="src\Effect\FrameImage.cs" />
     <Compile Include="src\Effect\GameTime.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="src\GameObject\BackgroundMap.cs" />
+    <Compile Include="src\GameObject\BlueFire.cs" />
+    <Compile Include="src\GameObject\Bullet.cs" />
     <Compile Include="src\GameObject\BulletManager.cs" />
     <Compile Include="src\GameObject\Camera.cs" />
+    <Compile Include="src\GameObject\FinalBoss.cs" />
     <Compile Include="src\GameObject\GameObject.cs" />
     <Compile Include="src\GameObject\Human.cs" />
     <Compile Include="src\GameObject\MegaMan.cs" />
     <Compile Include="src\GameObject\ParticularObject.cs" />
     <Compile Include="src\GameObject\ParticularObjectManager.cs" />
     <Compile Include="src\GameObject\PhysicalMap.cs" />
+    <Compile Include="src\GameObject\RocketBullet.cs" />
     <Compile Include="src\State\GameWorldState.cs" />
     <Compile Include="src\State\MenuState.cs" />
     <Compile Include="src\State\State.cs" />
@@ -143,8 +156,6 @@
   <ItemGroup>
     <None Include="Resources\tiled.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="src\Control\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
