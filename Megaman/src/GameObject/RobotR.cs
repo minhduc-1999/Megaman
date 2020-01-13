@@ -1,29 +1,31 @@
-﻿using System;
+﻿using Megaman.src.Effect;
+using Megaman.src.State;
+using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Megaman.src.GameObject
 {
-    public class RobotR extends ParticularObject
+    public class RobotR : ParticularObject
     {
 
     private Animation forwardAnim, backAnim;
 
-    private long startTimeToShoot;
+    private DateTime startTimeToShoot;
     private float x1, x2, y1, y2;
 
-    private AudioClip shooting;
+    //private AudioClip shooting;
 
-    public RobotR(float x, float y, GameWorldState gameWorld)
+    public RobotR(float x, float y, GameWorldState gameWorld) : base(x, y, 127, 89, 0, 100, gameWorld)
     {
-        super(x, y, 127, 89, 0, 100, gameWorld);
         backAnim = CacheDataLoader.getInstance().getAnimation("robotR");
         forwardAnim = CacheDataLoader.getInstance().getAnimation("robotR");
         forwardAnim.flipAllImage();
-        startTimeToShoot = 0;
-        setTimeForNoBehurt(300000000);
+        startTimeToShoot = DateTime.Now;
+        setTimeForNoBehurt(300);
         setDamage(10);
 
         x1 = x - 100;
@@ -34,17 +36,17 @@ namespace Megaman.src.GameObject
         setSpeedX(1);
         setSpeedY(1);
 
-        shooting = CacheDataLoader.getInstance().getSound("robotRshooting");
+        //shooting = CacheDataLoader.getInstance().getSound("robotRshooting");
     }
 
-    @Override
-    public void attack()
+    //@Override
+    public override void attack(GameTime gameTime)
     {
 
-        shooting.play();
+        //shooting.play();
         Bullet bullet = new RobotRBullet(getPosX(), getPosY(), getGameWorld());
 
-        if (getDirection() == LEFT_DIR)
+        if (getDirection() == MainDir.LEFT_DIR)
             bullet.setSpeedX(5);
         else bullet.setSpeedX(-5);
         bullet.setTeamType(getTeamType());
@@ -53,12 +55,12 @@ namespace Megaman.src.GameObject
     }
 
 
-    public void Update()
+    public override void Update(GameTime gameTime)
     {
-        super.Update();
+        base.Update(gameTime);
 
-        if (getPosX() - getGameWorld().megaMan.getPosX() > 0) setDirection(ParticularObject.RIGHT_DIR);
-        else setDirection(ParticularObject.LEFT_DIR);
+        if (getPosX() - getGameWorld().megaMan.getPosX() > 0) setDirection(MainDir.RIGHT_DIR);
+        else setDirection(MainDir.LEFT_DIR);
 
         if (getPosX() < x1)
             setSpeedX(1);
@@ -72,45 +74,45 @@ namespace Megaman.src.GameObject
             setSpeedY(-1);
         setPosY(getPosY() + getSpeedY());
 
-        if (System.nanoTime() - startTimeToShoot > 1000 * 10000000 * 1.5)
+        if (gameTime.GetTimeSpanMilis(startTimeToShoot )> 1000 * 1.5)
         {
-            attack();
-            startTimeToShoot = System.nanoTime();
+            attack(gameTime);
+            startTimeToShoot = DateTime.Now;
         }
     }
 
-    @Override
-    public Rectangle getBoundForCollisionWithEnemy()
+   // @Override
+    public override Rectangle getBoundForCollisionWithEnemy()
     {
         Rectangle rect = getBoundForCollisionWithMap();
-        rect.x += 20;
-        rect.width -= 40;
+        rect.X += 20;
+        rect.Width -= 40;
 
         return rect;
     }
 
-    @Override
-    public void draw(Graphics2D g2)
+    //@Override
+    public override void draw(Graphics g2, GameTime gameTime)
     {
         if (!isObjectOutOfCameraView())
         {
-            if (getState() == NOBEHURT && (System.nanoTime() / 10000000) % 2 != 1)
+            if (getState() == MainState.NOBEHURT )
             {
                 // plash...
             }
             else
             {
-                if (getDirection() == LEFT_DIR)
+                if (getDirection() == MainDir.LEFT_DIR)
                 {
-                    backAnim.Update(System.nanoTime());
-                    backAnim.draw((int)(getPosX() - getGameWorld().camera.getPosX()),
-                            (int)(getPosY() - getGameWorld().camera.getPosY()), g2);
+                    backAnim.Update(gameTime);
+                    backAnim.draw(g2, (int)(getPosX() - getGameWorld().camera.getPosX()),
+                            (int)(getPosY() - getGameWorld().camera.getPosY()));
                 }
                 else
                 {
-                    forwardAnim.Update(System.nanoTime());
-                    forwardAnim.draw((int)(getPosX() - getGameWorld().camera.getPosX()),
-                            (int)(getPosY() - getGameWorld().camera.getPosY()), g2);
+                    forwardAnim.Update(gameTime);
+                    forwardAnim.draw(g2,(int)(getPosX() - getGameWorld().camera.getPosX()),
+                            (int)(getPosY() - getGameWorld().camera.getPosY()));
                 }
             }
         }

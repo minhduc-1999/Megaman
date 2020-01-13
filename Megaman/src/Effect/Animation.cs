@@ -211,10 +211,10 @@ namespace Megaman.src.Effect
 
             Image image = getCurrentImage();
 
-            g2.DrawImage(image, x , y);
+            g2.DrawImage(image, x - image.Width / 2, y - image.Height / 2);
             //g2.DrawImage(image, x - image.Width / 2, y - image.Height / 2);
-            if (drawRectFrame)
-                g2.DrawRectangle(new Pen(Color.Purple),x - image.Width / 2, x - image.Height / 2, image.Width, image.Height);
+            //if (drawRectFrame)
+            //    g2.DrawRectangle(new Pen(Color.Purple),x - image.Width / 2, x - image.Height / 2, image.Width, image.Height);
 
         }
     }

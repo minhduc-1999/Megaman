@@ -89,63 +89,63 @@ namespace Megaman.src.State
 
         private void initEnemies()
         {
-            //ParticularObject redeye = new RedEyeDevil(1250, 410, this);
-            //redeye.setDirection(ParticularObject.LEFT_DIR);
-            //redeye.setTeamType(ParticularObject.ENEMY_TEAM);
-            //particularObjectManager.addObject(redeye);
+            ParticularObject redeye = new RedEyeDevil(1250, 410, this);
+            redeye.setDirection(ParticularObject.MainDir.LEFT_DIR);
+            redeye.setTeamType(ParticularObject.TeamType.ENEMY_TEAM);
+            particularObjectManager.addObject(redeye);
 
-            //ParticularObject smallRedGun = new SmallRedGun(1600, 180, this);
-            //smallRedGun.setDirection(ParticularObject.LEFT_DIR);
-            //smallRedGun.setTeamType(ParticularObject.ENEMY_TEAM);
-            //particularObjectManager.addObject(smallRedGun);
+            ParticularObject smallRedGun = new SmallRedGun(1600, 180, this);
+            smallRedGun.setDirection(ParticularObject.MainDir.LEFT_DIR);
+            smallRedGun.setTeamType(ParticularObject.TeamType.ENEMY_TEAM);
+            particularObjectManager.addObject(smallRedGun);
 
-            //ParticularObject darkraise = new DarkRaise(2000, 200, this);
-            //darkraise.setTeamType(ParticularObject.ENEMY_TEAM);
-            //particularObjectManager.addObject(darkraise);
+            ParticularObject darkraise = new DarkRaise(2000, 200, this);
+            darkraise.setTeamType(ParticularObject.TeamType.ENEMY_TEAM);
+            particularObjectManager.addObject(darkraise);
 
-            //ParticularObject darkraise2 = new DarkRaise(2800, 350, this);
-            //darkraise2.setTeamType(ParticularObject.ENEMY_TEAM);
-            //particularObjectManager.addObject(darkraise2);
+            ParticularObject darkraise2 = new DarkRaise(2800, 350, this);
+            darkraise2.setTeamType(ParticularObject.TeamType.ENEMY_TEAM);
+            particularObjectManager.addObject(darkraise2);
 
-            //ParticularObject robotR = new RobotR(900, 400, this);
-            //robotR.setTeamType(ParticularObject.ENEMY_TEAM);
-            //particularObjectManager.addObject(robotR);
+            ParticularObject robotR = new RobotR(900, 400, this);
+            robotR.setTeamType(ParticularObject.TeamType.ENEMY_TEAM);
+            particularObjectManager.addObject(robotR);
 
-            //ParticularObject robotR2 = new RobotR(3400, 350, this);
-            //robotR2.setTeamType(ParticularObject.ENEMY_TEAM);
-            //particularObjectManager.addObject(robotR2);
-
-
-            //ParticularObject redeye2 = new RedEyeDevil(2500, 500, this);
-            //redeye2.setDirection(ParticularObject.LEFT_DIR);
-            //redeye2.setTeamType(ParticularObject.ENEMY_TEAM);
-            //particularObjectManager.addObject(redeye2);
-
-            //ParticularObject redeye3 = new RedEyeDevil(3450, 500, this);
-            //redeye3.setDirection(ParticularObject.LEFT_DIR);
-            //redeye3.setTeamType(ParticularObject.ENEMY_TEAM);
-            //particularObjectManager.addObject(redeye3);
-
-            //ParticularObject redeye4 = new RedEyeDevil(500, 1190, this);
-            //redeye4.setDirection(ParticularObject.RIGHT_DIR);
-            //redeye4.setTeamType(ParticularObject.ENEMY_TEAM);
-            //particularObjectManager.addObject(redeye4);
+            ParticularObject robotR2 = new RobotR(3400, 350, this);
+            robotR2.setTeamType(ParticularObject.TeamType.ENEMY_TEAM);
+            particularObjectManager.addObject(robotR2);
 
 
-            //ParticularObject darkraise3 = new DarkRaise(750, 650, this);
-            //darkraise3.setTeamType(ParticularObject.ENEMY_TEAM);
-            //particularObjectManager.addObject(darkraise3);
+            ParticularObject redeye2 = new RedEyeDevil(2500, 500, this);
+            redeye2.setDirection(ParticularObject.MainDir.LEFT_DIR);
+            redeye2.setTeamType(ParticularObject.TeamType.ENEMY_TEAM);
+            particularObjectManager.addObject(redeye2);
 
-            //ParticularObject robotR3 = new RobotR(1500, 1150, this);
-            //robotR3.setTeamType(ParticularObject.ENEMY_TEAM);
-            //particularObjectManager.addObject(robotR3);
+            ParticularObject redeye3 = new RedEyeDevil(3450, 500, this);
+            redeye3.setDirection(ParticularObject.MainDir.LEFT_DIR);
+            redeye3.setTeamType(ParticularObject.TeamType.ENEMY_TEAM);
+            particularObjectManager.addObject(redeye3);
+
+            ParticularObject redeye4 = new RedEyeDevil(500, 1190, this);
+            redeye4.setDirection(ParticularObject.MainDir.RIGHT_DIR);
+            redeye4.setTeamType(ParticularObject.TeamType.ENEMY_TEAM);
+            particularObjectManager.addObject(redeye4);
+
+
+            ParticularObject darkraise3 = new DarkRaise(750, 650, this);
+            darkraise3.setTeamType(ParticularObject.TeamType.ENEMY_TEAM);
+            particularObjectManager.addObject(darkraise3);
+
+            ParticularObject robotR3 = new RobotR(1500, 1150, this);
+            robotR3.setTeamType(ParticularObject.TeamType.ENEMY_TEAM);
+            particularObjectManager.addObject(robotR3);
 
 
 
-            //ParticularObject smallRedGun2 = new SmallRedGun(1700, 980, this);
-            //smallRedGun2.setDirection(ParticularObject.LEFT_DIR);
-            //smallRedGun2.setTeamType(ParticularObject.ENEMY_TEAM);
-            //particularObjectManager.addObject(smallRedGun2);
+            ParticularObject smallRedGun2 = new SmallRedGun(1700, 980, this);
+            smallRedGun2.setDirection(ParticularObject.MainDir.LEFT_DIR);
+            smallRedGun2.setTeamType(ParticularObject.TeamType.ENEMY_TEAM);
+            particularObjectManager.addObject(smallRedGun2);
         }
 
         public void switchState(GameState state)
@@ -203,15 +203,15 @@ namespace Megaman.src.State
                             camera.Lock();
                             storyTutorial++;
                             megaMan.stopRun();
-                            physicalMap.phys_map[14,120] = 1;
-                            physicalMap.phys_map[15,120] = 1;
-                            physicalMap.phys_map[16,120] = 1;
-                            physicalMap.phys_map[17,120] = 1;
+                            physicalMap.phys_map[14, 120] = 1;
+                            physicalMap.phys_map[15, 120] = 1;
+                            physicalMap.phys_map[16, 120] = 1;
+                            physicalMap.phys_map[17, 120] = 1;
 
-                            backgroundMap.map[14,120] = 17;
-                            backgroundMap.map[15,120] = 17;
-                            backgroundMap.map[16,120] = 17;
-                            backgroundMap.map[17,120] = 17;
+                            backgroundMap.map[14, 120] = 17;
+                            backgroundMap.map[15, 120] = 17;
+                            backgroundMap.map[16, 120] = 17;
+                            backgroundMap.map[17, 120] = 17;
                         }
 
                     }
@@ -228,7 +228,7 @@ namespace Megaman.src.State
         {
             foreach (String str in text.Split(new char[] { '\n' }))
             {
-                
+
                 Font font = new Font("Verdana", 15);
                 g2.DrawString(str, font, new SolidBrush(Color.Black), x, y += font.Height);
             }
@@ -373,7 +373,7 @@ namespace Megaman.src.State
                         backgroundMap.draw(g2);
                         if (tutorialState == TutorialState.MEETreadonlyBOSS)
                         {
-                            particularObjectManager.draw(g2,gameTime);
+                            particularObjectManager.draw(g2, gameTime);
                         }
                         TutorialRender(g2);
 
@@ -381,8 +381,8 @@ namespace Megaman.src.State
                     case GameState.GAMEWIN:
                     case GameState.GAMEPLAY:
                         backgroundMap.draw(g2);
-                        particularObjectManager.draw(g2,gameTime);
-                        bulletManager.draw(g2,gameTime);
+                        particularObjectManager.draw(g2, gameTime);
+                        bulletManager.draw(g2, gameTime);
 
                         brush.Color = Color.Gray;
                         g2.FillRectangle(brush, 19, 59, 102, 22);

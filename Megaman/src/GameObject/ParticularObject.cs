@@ -217,8 +217,7 @@ namespace Megaman.src.GameObject
 
                             // switch state to fey if object die
 
-
-                            MessageBox.Show("eat damage.... from collision with enemy........ " + obj.getDamage());
+                            //MessageBox.Show("eat damage.... from collision with enemy........ " + obj.getDamage());
                             beHurt(obj.getDamage());
                         }
 
@@ -264,7 +263,7 @@ namespace Megaman.src.GameObject
                     break;
 
                 case MainState.NOBEHURT:
-                    MessageBox.Show("state = nobehurt");
+                    //MessageBox.Show("state = nobehurt");
                     if (gameTime.GetTimeSpanMilis(startTimeNoBeHurt )> timeForNoBeHurt)
                         state = MainState.ALIVE;
                     break;

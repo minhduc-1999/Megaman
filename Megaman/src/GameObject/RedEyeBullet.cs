@@ -1,20 +1,23 @@
-﻿using System;
+﻿using Megaman.src.Effect;
+using Megaman.src.State;
+using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Megaman.src.GameObject
 {
-    public class RedEyeBullet extends Bullet
+    public class RedEyeBullet : Bullet
     {
 
 
     private Animation forwardBulletAnim, backBulletAnim;
 
-    public RedEyeBullet(float x, float y, GameWorldState gameWorld)
+    public RedEyeBullet(float x, float y, GameWorldState gameWorld):  base(x, y, 30, 30, 1.0f, 10, gameWorld)
     {
-        super(x, y, 30, 30, 1.0f, 10, gameWorld);
+      
         forwardBulletAnim = CacheDataLoader.getInstance().getAnimation("redeyebullet");
         backBulletAnim = CacheDataLoader.getInstance().getAnimation("redeyebullet");
         backBulletAnim.flipAllImage();
@@ -22,39 +25,39 @@ namespace Megaman.src.GameObject
 
 
 
-    @Override
-    public Rectangle getBoundForCollisionWithEnemy()
+    //@Override
+    public override Rectangle getBoundForCollisionWithEnemy()
     {
         // TODO Auto-generated method stub
         return getBoundForCollisionWithMap();
     }
 
-    @Override
-    public void draw(Graphics2D g2)
+    //@Override
+    public override void draw(Graphics g2,GameTime gameTime)
     {
         // TODO Auto-generated method stub
         if (getSpeedX() > 0)
         {
-            forwardBulletAnim.Update(System.nanoTime());
-            forwardBulletAnim.draw((int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY(), g2);
+            forwardBulletAnim.Update(gameTime);
+            forwardBulletAnim.draw(g2,(int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY());
         }
         else
         {
-            backBulletAnim.Update(System.nanoTime());
-            backBulletAnim.draw((int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY(), g2);
+            backBulletAnim.Update(gameTime);
+            backBulletAnim.draw(g2, (int)(getPosX() - getGameWorld().camera.getPosX()), (int)getPosY() - (int)getGameWorld().camera.getPosY());
         }
         //drawBoundForCollisionWithEnemy(g2);
     }
 
-    @Override
-    public void Update()
+    //@Override
+    public override void Update(GameTime gameTime)
     {
         // TODO Auto-generated method stub
-        super.Update();
+        base.Update(gameTime);
     }
 
-    @Override
-    public void attack() { }
+    //@Override
+    public override void attack(GameTime gameTime) { }
 
 }
 

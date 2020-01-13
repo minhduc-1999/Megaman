@@ -73,10 +73,9 @@ namespace Megaman.src.GameObject
                 {
 
                     setPosX(getPosX() + getSpeedX());
-
-
+                   
                     if (getDirection() == MainDir.LEFT_DIR &&
-                            getGameWorld().physicalMap.haveCollisionWithLeftWall(getBoundForCollisionWithMap()) != null)
+                            getGameWorld().physicalMap.haveCollisionWithLeftWall(getBoundForCollisionWithMap()) != Rectangle.Empty)
                     {
 
                         Rectangle rectLeftWall = getGameWorld().physicalMap.haveCollisionWithLeftWall(getBoundForCollisionWithMap());
@@ -84,7 +83,7 @@ namespace Megaman.src.GameObject
 
                     }
                     if (getDirection() == MainDir.RIGHT_DIR &&
-                            getGameWorld().physicalMap.haveCollisionWithRightWall(getBoundForCollisionWithMap()) != null)
+                            getGameWorld().physicalMap.haveCollisionWithRightWall(getBoundForCollisionWithMap()) != Rectangle.Empty)
                     {
 
                         Rectangle rectRightWall = getGameWorld().physicalMap.haveCollisionWithRightWall(getBoundForCollisionWithMap());
@@ -115,7 +114,8 @@ namespace Megaman.src.GameObject
                     else if (rectLand != Rectangle.Empty)
                     {
                         setIsJumping(false);
-                        if (getSpeedY() > 0) setIsLanding(true);
+                        if (getSpeedY() > 0)
+                            setIsLanding(true);
                         setSpeedY(0);
                         setPosY(rectLand.Y - getHeight() / 2 - 1);
                     }

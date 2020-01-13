@@ -50,7 +50,7 @@ namespace Megaman.src.GameObject
                 for (int x = posX1; x <= posX2; x++)
                 {
 
-                    if (phys_map[y, x] == 1)
+                      if (phys_map[y, x] == 1)
                     {
                         Rectangle r = new Rectangle((int)getPosX() + x * tileSize, (int)getPosY() + y * tileSize, tileSize, tileSize);
                         if (rect.IntersectsWith(r))

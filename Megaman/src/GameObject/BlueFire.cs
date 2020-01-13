@@ -75,7 +75,7 @@ namespace Megaman.src.GameObject
                 setBlood(0);
                 obj.setBlood(obj.getBlood() - getDamage());
                 obj.setState(MainState.BEHURT);
-                MessageBox.Show("Bullet set behurt for enemy");
+               // MessageBox.Show("Bullet set behurt for enemy");
             }
         }
 

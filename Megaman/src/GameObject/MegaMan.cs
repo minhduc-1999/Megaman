@@ -142,7 +142,7 @@ namespace Megaman.src.GameObject
                 case MainState.NOBEHURT:
                     if (getState() == MainState.NOBEHURT && (gameTime.GetTimeSpanMilis(DateTime.Now)) % 2 != 1)
                     {
-                        MessageBox.Show("Plash...");
+                       // MessageBox.Show("Plash...");
                     }
                     else
                     {
@@ -296,8 +296,8 @@ namespace Megaman.src.GameObject
         public override void run()
         {
             if (getDirection() == MainDir.LEFT_DIR)
-                setSpeedX(-3);
-            else setSpeedX(3);
+                setSpeedX(-5);
+            else setSpeedX(5);
         }
 
         //@Override
@@ -322,18 +322,18 @@ namespace Megaman.src.GameObject
                 if (getGameWorld().physicalMap.haveCollisionWithRightWall(rectRightWall) != Rectangle.Empty && getSpeedX() > 0)
                 {
                     setSpeedY(-5.0f);
-                    //setSpeedX(-1);
+                    setSpeedX(-1);
                     flyBackAnim.reset();
                     flyForwardAnim.reset();
-                    //setDirection(LEFT_DIR);
+                    setDirection(MainDir.LEFT_DIR);
                 }
                 else if (getGameWorld().physicalMap.haveCollisionWithLeftWall(rectLeftWall) != Rectangle.Empty && getSpeedX() < 0)
                 {
                     setSpeedY(-5.0f);
-                    //setSpeedX(1);
+                    setSpeedX(1);
                     flyBackAnim.reset();
                     flyForwardAnim.reset();
-                    //setDirection(RIGHT_DIR);
+                    setDirection(MainDir.RIGHT_DIR);
                 }
 
             }
@@ -411,7 +411,7 @@ namespace Megaman.src.GameObject
         //@Override
         public override void hurtingCallback()
         {
-            MessageBox.Show("Call back hurting");
+            //MessageBox.Show("Call back hurting");
             //hurtingSound.play();
         }
 

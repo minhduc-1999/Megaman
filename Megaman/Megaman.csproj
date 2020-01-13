@@ -67,6 +67,8 @@
     <Compile Include="src\GameObject\Bullet.cs" />
     <Compile Include="src\GameObject\BulletManager.cs" />
     <Compile Include="src\GameObject\Camera.cs" />
+    <Compile Include="src\GameObject\DarkRaise.cs" />
+    <Compile Include="src\GameObject\DarkRaiseBullet.cs" />
     <Compile Include="src\GameObject\FinalBoss.cs" />
     <Compile Include="src\GameObject\GameObject.cs" />
     <Compile Include="src\GameObject\Human.cs" />
@@ -74,7 +76,13 @@
     <Compile Include="src\GameObject\ParticularObject.cs" />
     <Compile Include="src\GameObject\ParticularObjectManager.cs" />
     <Compile Include="src\GameObject\PhysicalMap.cs" />
+    <Compile Include="src\GameObject\RedEyeBullet.cs" />
+    <Compile Include="src\GameObject\RedEyeDevil.cs" />
+    <Compile Include="src\GameObject\RobotR.cs" />
+    <Compile Include="src\GameObject\RobotRBullet.cs" />
     <Compile Include="src\GameObject\RocketBullet.cs" />
+    <Compile Include="src\GameObject\SmallRedGun.cs" />
+    <Compile Include="src\GameObject\YellowFlowerBullet.cs" />
     <Compile Include="src\State\GameWorldState.cs" />
     <Compile Include="src\State\MenuState.cs" />
     <Compile Include="src\State\State.cs" />

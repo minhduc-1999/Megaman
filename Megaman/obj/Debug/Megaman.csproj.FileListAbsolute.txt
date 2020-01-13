@@ -1,6 +1,3 @@
-G:\My Code\Megaman\Megaman\obj\Debug\Megaman.csprojAssemblyReference.cache
-G:\My Code\Megaman\Megaman\obj\Debug\Megaman.Properties.Resources.resources
-G:\My Code\Megaman\Megaman\obj\Debug\Megaman.csproj.GenerateResource.cache
 G:\Git\Megaman\Megaman\bin\Debug\Megaman.exe.config
 G:\Git\Megaman\Megaman\bin\Debug\Megaman.exe
 G:\Git\Megaman\Megaman\bin\Debug\Megaman.pdb

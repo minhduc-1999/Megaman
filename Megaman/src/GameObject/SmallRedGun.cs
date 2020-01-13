@@ -1,95 +1,97 @@
-﻿using System;
+﻿using Megaman.src.Effect;
+using Megaman.src.State;
+using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Megaman.src.GameObject
 {
-    public class SmallRedGun extends ParticularObject
+    public class SmallRedGun : ParticularObject
     {
 
-    private Animation forwardAnim, backAnim;
+        private Animation forwardAnim, backAnim;
 
-    private long startTimeToShoot;
+        private DateTime startTimeToShoot;
 
-    public SmallRedGun(float x, float y, GameWorldState gameWorld)
-    {
-        super(x, y, 127, 89, 0, 100, gameWorld);
-        backAnim = CacheDataLoader.getInstance().getAnimation("smallredgun");
-        forwardAnim = CacheDataLoader.getInstance().getAnimation("smallredgun");
-        forwardAnim.flipAllImage();
-        startTimeToShoot = 0;
-        setTimeForNoBehurt(300000000);
-    }
-
-    @Override
-    public void attack()
-    {
-
-        Bullet bullet = new YellowFlowerBullet(getPosX(), getPosY(), getGameWorld());
-        bullet.setSpeedX(-3);
-        bullet.setSpeedY(3);
-        bullet.setTeamType(getTeamType());
-        getGameWorld().bulletManager.addObject(bullet);
-
-        bullet = new YellowFlowerBullet(getPosX(), getPosY(), getGameWorld());
-        bullet.setSpeedX(3);
-        bullet.setSpeedY(3);
-        bullet.setTeamType(getTeamType());
-        getGameWorld().bulletManager.addObject(bullet);
-    }
-
-
-    public void Update()
-    {
-        super.Update();
-        if (System.nanoTime() - startTimeToShoot > 1000 * 10000000 * 2.0)
+        public SmallRedGun(float x, float y, GameWorldState gameWorld) : base(x, y, 127, 89, 0, 100, gameWorld)
         {
-            attack();
-            System.out.println("Red Eye attack");
-            startTimeToShoot = System.nanoTime();
+
+            backAnim = CacheDataLoader.getInstance().getAnimation("smallredgun");
+            forwardAnim = CacheDataLoader.getInstance().getAnimation("smallredgun");
+            forwardAnim.flipAllImage();
+            startTimeToShoot = DateTime.Now;
+            setTimeForNoBehurt(300);
         }
-    }
 
-    @Override
-    public Rectangle getBoundForCollisionWithEnemy()
-    {
-        Rectangle rect = getBoundForCollisionWithMap();
-        rect.x += 20;
-        rect.width -= 40;
-
-        return rect;
-    }
-
-    @Override
-    public void draw(Graphics2D g2)
-    {
-        if (!isObjectOutOfCameraView())
+        //@Override
+        public override void attack(GameTime gameTime)
         {
-            if (getState() == NOBEHURT && (System.nanoTime() / 10000000) % 2 != 1)
+
+            Bullet bullet = new YellowFlowerBullet(getPosX(), getPosY(), getGameWorld());
+            bullet.setSpeedX(-3);
+            bullet.setSpeedY(3);
+            bullet.setTeamType(getTeamType());
+            getGameWorld().bulletManager.addObject(bullet);
+
+            bullet = new YellowFlowerBullet(getPosX(), getPosY(), getGameWorld());
+            bullet.setSpeedX(3);
+            bullet.setSpeedY(3);
+            bullet.setTeamType(getTeamType());
+            getGameWorld().bulletManager.addObject(bullet);
+        }
+
+
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+            if (gameTime.GetTimeSpanMilis(startTimeToShoot) > 1000 * 2.0)
             {
-                // plash...
+                attack(gameTime);
+                startTimeToShoot = DateTime.Now;
             }
-            else
+        }
+
+        //@Override
+        public override Rectangle getBoundForCollisionWithEnemy()
+        {
+            Rectangle rect = getBoundForCollisionWithMap();
+            rect.X += 20;
+            rect.Width -= 40;
+
+            return rect;
+        }
+
+        //@Override
+        public override void draw(Graphics g2, GameTime gameTime)
+        {
+            if (!isObjectOutOfCameraView())
             {
-                if (getDirection() == LEFT_DIR)
+                if (getState() == MainState.NOBEHURT)
                 {
-                    backAnim.Update(System.nanoTime());
-                    backAnim.draw((int)(getPosX() - getGameWorld().camera.getPosX()),
-                            (int)(getPosY() - getGameWorld().camera.getPosY()), g2);
+                    // plash...
                 }
                 else
                 {
-                    forwardAnim.Update(System.nanoTime());
-                    forwardAnim.draw((int)(getPosX() - getGameWorld().camera.getPosX()),
-                            (int)(getPosY() - getGameWorld().camera.getPosY()), g2);
+                    if (getDirection() == MainDir.LEFT_DIR)
+                    {
+                        backAnim.Update(gameTime);
+                        backAnim.draw(g2, (int)(getPosX() - getGameWorld().camera.getPosX()),
+                                (int)(getPosY() - getGameWorld().camera.getPosY()));
+                    }
+                    else
+                    {
+                        forwardAnim.Update(gameTime);
+                        forwardAnim.draw(g2, (int)(getPosX() - getGameWorld().camera.getPosX()),
+                                (int)(getPosY() - getGameWorld().camera.getPosY()));
+                    }
                 }
             }
+            //drawBoundForCollisionWithEnemy(g2);
         }
-        //drawBoundForCollisionWithEnemy(g2);
-    }
 
-}
+    }
 
 }
