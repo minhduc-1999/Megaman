@@ -29,7 +29,6 @@ namespace Megaman.src.GameObject
             {
                 setBlood(0);
                 obj.beHurt(getDamage());
-                //MessageBox.Show("Bullet set behurt for enemy");
             }
         }
 

@@ -35,7 +35,7 @@ namespace Megaman.src.GameObject
 
             setTeamType(TeamType.LEAGUE_TEAM);
 
-            setTimeForNoBehurt(2000);
+            setTimeForNoBehurt(0);
 
             runForwardAnim = CacheDataLoader.getInstance().getAnimation("run");
             runBackAnim = CacheDataLoader.getInstance().getAnimation("run");
@@ -287,9 +287,6 @@ namespace Megaman.src.GameObject
                     break;
 
             }
-
-            //drawBoundForCollisionWithMap(g2);
-            //drawBoundForCollisionWithEnemy(g2);
         }
 
         //@Override
@@ -311,7 +308,6 @@ namespace Megaman.src.GameObject
                 flyBackAnim.reset();
                 flyForwardAnim.reset();
             }
-            // for clim wall
             else
             {
                 Rectangle rectRightWall = getBoundForCollisionWithMap();
@@ -338,15 +334,12 @@ namespace Megaman.src.GameObject
 
             }
         }
-
-        //@Override
         public override void dick()
         {
             if (!getIsJumping())
                 setIsDicking(true);
         }
 
-        // @Override
         public override void standUp()
         {
             setIsDicking(false);
@@ -355,8 +348,6 @@ namespace Megaman.src.GameObject
             dickForwardAnim.reset();
             dickBackAnim.reset();
         }
-
-        //@Override
         public override void stopRun()
         {
             setSpeedX(0);
@@ -366,7 +357,6 @@ namespace Megaman.src.GameObject
             runBackAnim.unIgnoreFrame(0);
         }
 
-        //@Override
         public override void attack(GameTime gameTime)
         {
 
@@ -408,10 +398,8 @@ namespace Megaman.src.GameObject
             }
 
         }
-        //@Override
         public override void hurtingCallback()
         {
-            //MessageBox.Show("Call back hurting");
             //hurtingSound.play();
         }
 

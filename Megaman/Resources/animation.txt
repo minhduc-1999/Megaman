@@ -3,10 +3,10 @@ idle
 idle1 70 idle2 70 idle3 70 idle2 70 idle1 150
 
 idleshoot
-idleshoot1 50 idleshoot1 700
+idleshoot1 500 idleshoot1 700
 
 run
-run1 10 run2 10 run3 10 run4 10 run5 10 run6 10 run7 10 run8 10 run9 10 run10 10 run11 10
+run1 100 run2 100 run3 100 run4 100 run5 100 run6 100 run7 100 run8 100 run9 100 run10 100 run11 100
 
 runshoot
 runshoot1 1 runshoot2 1 runshoot3 1 runshoot4 1 runshoot5 5 runshoot6 1 runshoot7 1 runshoot8 1 runshoot9 1 runshoot10 1

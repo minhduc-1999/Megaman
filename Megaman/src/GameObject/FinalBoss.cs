@@ -24,7 +24,7 @@ namespace Megaman.src.GameObject
         private int attackIndex = 0;
         private DateTime lastAttackTime;
 
-        public FinalBoss(float x, float y, GameWorldState gameWorld) : base(x, y, 110, 150, 0.1f, 100, gameWorld)
+        public FinalBoss(float x, float y, GameWorldState gameWorld) : base(x, y, 110, 150, 0.1f, 500, gameWorld)
         {
 
             idleback = CacheDataLoader.getInstance().getAnimation("boss_idle");
@@ -40,7 +40,7 @@ namespace Megaman.src.GameObject
             slideforward.flipAllImage();
 
             setTimeForNoBehurt(500);
-            setDamage(10);
+            setDamage(20);
 
             attackType[0] = "NONE";
             attackType[1] = "shooting";
@@ -75,8 +75,10 @@ namespace Megaman.src.GameObject
                 {
 
                     Bullet bullet = new RocketBullet(getPosX(), getPosY() - 50, getGameWorld());
-                    if (getDirection() == MainDir.LEFT_DIR) bullet.setSpeedX(-4);
-                    else bullet.setSpeedX(4);
+                    if (getDirection() == MainDir.LEFT_DIR) 
+                        bullet.setSpeedX(-4);
+                    else
+                        bullet.setSpeedX(4);
                     bullet.setTeamType(getTeamType());
                     getGameWorld().bulletManager.addObject(bullet);
 
@@ -224,7 +226,6 @@ namespace Megaman.src.GameObject
                     }
                 }
             }
-            // drawBoundForCollisionWithEnemy(g2);
         }
 
     }

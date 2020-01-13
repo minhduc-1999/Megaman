@@ -19,7 +19,7 @@ namespace Megaman.src.GameObject
 
     //private AudioClip shooting;
 
-    public RobotR(float x, float y, GameWorldState gameWorld) : base(x, y, 127, 89, 0, 100, gameWorld)
+    public RobotR(float x, float y, GameWorldState gameWorld) : base(x, y, 127, 89, 0, 30, gameWorld)
     {
         backAnim = CacheDataLoader.getInstance().getAnimation("robotR");
         forwardAnim = CacheDataLoader.getInstance().getAnimation("robotR");

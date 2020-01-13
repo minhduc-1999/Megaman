@@ -264,7 +264,7 @@ namespace Megaman.src.GameObject
 
                 case MainState.NOBEHURT:
                     //MessageBox.Show("state = nobehurt");
-                    if (gameTime.GetTimeSpanMilis(startTimeNoBeHurt )> timeForNoBeHurt)
+                    if (gameTime.GetTimeSpanMilis(startTimeNoBeHurt ) > timeForNoBeHurt)
                         state = MainState.ALIVE;
                     break;
             }

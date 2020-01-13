@@ -17,7 +17,7 @@ namespace Megaman.src.GameObject
     private DateTime startTimeToShoot;
     private float x1, x2;
 
-    public DarkRaise(float x, float y, GameWorldState gameWorld) : base(x, y, 127, 89, 0, 100, gameWorld)
+    public DarkRaise(float x, float y, GameWorldState gameWorld) : base(x, y, 127, 89, 0, 30, gameWorld)
     {
        
         backAnim = CacheDataLoader.getInstance().getAnimation("darkraise");

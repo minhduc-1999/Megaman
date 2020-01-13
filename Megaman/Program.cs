@@ -15,6 +15,7 @@ namespace Megaman
         [STAThread]
         static void Main()
         {
+            AppDomain.CurrentDomain.SetData("DataDirectory", Environment.CurrentDirectory.Replace("bin\\Debug", ""));
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new GameFrame());

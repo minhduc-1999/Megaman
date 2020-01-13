@@ -18,7 +18,7 @@ namespace Megaman.src.GameObject
 
    // private AudioClip shooting;
 
-    public RedEyeDevil(float x, float y, GameWorldState gameWorld) : base(x, y, 127, 89, 0, 100, gameWorld)
+    public RedEyeDevil(float x, float y, GameWorldState gameWorld) : base(x, y, 127, 89, 0, 30, gameWorld)
     {
        
         backAnim = CacheDataLoader.getInstance().getAnimation("redeye");

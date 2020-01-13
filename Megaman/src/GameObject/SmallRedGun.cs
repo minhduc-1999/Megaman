@@ -16,7 +16,7 @@ namespace Megaman.src.GameObject
 
         private DateTime startTimeToShoot;
 
-        public SmallRedGun(float x, float y, GameWorldState gameWorld) : base(x, y, 127, 89, 0, 100, gameWorld)
+        public SmallRedGun(float x, float y, GameWorldState gameWorld) : base(x, y, 127, 89, 0, 30, gameWorld)
         {
 
             backAnim = CacheDataLoader.getInstance().getAnimation("smallredgun");

@@ -26,7 +26,7 @@ namespace Megaman.src.UserInterface
         private bool run = true;
         public GamePanel() : base()
         {
-
+            this.DoubleBuffered = true;
             buffedContext = BufferedGraphicsManager.Current;
             _gameTime = new GameTime();
             gameState = new GameWorldState(this, _gameTime);

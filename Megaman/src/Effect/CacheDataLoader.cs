@@ -14,10 +14,15 @@ namespace Megaman.src.Effect
 
         private static CacheDataLoader instance = null;
 
-        private String framefile = @"G:\Git\Megaman\Megaman\Resources\frame.txt";
-        private String animationfile = @"G:\Git\Megaman\Megaman\Resources\animation.txt";
-        private String physmapfile = @"G:\Git\Megaman\Megaman\Resources\phys_map.txt";
-        private String backgroundmapfile = @"G:\Git\Megaman\Megaman\Resources\background_map.txt";
+        //private String framefile = @"G:\Git\Megaman\Megaman\Resources\frame.txt";
+        //private String animationfile = @"G:\Git\Megaman\Megaman\Resources\animation.txt";
+        //private String physmapfile = @"G:\Git\Megaman\Megaman\Resources\phys_map.txt";
+        //private String backgroundmapfile = @"G:\Git\Megaman\Megaman\Resources\background_map.txt";
+
+        private String framefile = AppDomain.CurrentDomain.GetData("DataDirectory").ToString() + "Resources\\frame.txt";
+        private String animationfile = AppDomain.CurrentDomain.GetData("DataDirectory").ToString() + "Resources\\animation.txt";
+        private String physmapfile = AppDomain.CurrentDomain.GetData("DataDirectory").ToString() + "Resources\\phys_map.txt";
+        private String backgroundmapfile = AppDomain.CurrentDomain.GetData("DataDirectory").ToString() + "Resources\\background_map.txt";
         //private String soundfile = "data/sounds.txt";
 
         private Dictionary<String, FrameImage> frameImages;
